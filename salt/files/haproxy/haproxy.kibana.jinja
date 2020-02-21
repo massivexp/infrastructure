@@ -9,6 +9,10 @@ defaults
     timeout client 120000ms
     timeout server 120000ms
 
+userlist basic-auth-list
+  group is-admin
+  user admin password ASYRtiLFCipT6 groups is-admin
+
 listen stats
    bind {{ salt['network.interface_ip']('vtnet1') }}:14567
    stats enable
@@ -21,5 +25,7 @@ frontend http-in
     default_backend servers
 
 backend servers
+    acl draw-auth http_auth(basic-auth-list)
+    http-request auth realm draw unless draw-auth
     {% for address in salt['mine.get']('G@roles:kibana and not G@roles:haproxy', 'private_ip', tgt_type='compound').items() %}server kibana{{ loop.index }} {{ address[1] }}:5601 maxconn 500 check on-marked-down shutdown-sessions
     {% endfor %}
