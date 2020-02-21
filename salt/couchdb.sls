@@ -52,6 +52,14 @@ couchdb2:
       - pkg: couchdb2
       - file: /usr/local/etc/couchdb2/local.d/custom.ini
 
+/mnt/storage:
+  file.managed:
+    - user: couchdb
+    - group: couchdb
+    - replace: False
+    - require:
+      - cmd: storage_bootstrap
+
 {% if grains['id'] == 'couchdb-a' %}
 {% for database in databases %}
 "curl -X PUT -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/{{ database }}' -d '' > '/root/created-{{ database }}-database'":
