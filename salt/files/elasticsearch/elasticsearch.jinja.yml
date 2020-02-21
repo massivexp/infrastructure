@@ -21,6 +21,7 @@ cluster.name: massivexp-logging
 # Use a descriptive name for the node:
 #
 node.name: {{ grains['id'] }}
+node.master: true
 #
 # Add custom attributes to the node:
 #
