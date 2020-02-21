@@ -39,22 +39,22 @@ variable "cluster_makeup" {
     }
 
     logging = {
-      heartbeat_provisioned = true
+      heartbeat_provisioned = false
       heartbeat_size = "s-1vcpu-1gb"
       elastic_size = "s-2vcpu-4gb"
       kibana_proxy_size = "s-1vcpu-1gb"
       kibana_size = "s-2vcpu-2gb"
-      kibana_proxy_provisioned = true
+      kibana_proxy_provisioned = false
       kibana_domain = "dashboard"
       logstash_size = "s-1vcpu-1gb"
-      logstash_node_count = 1
-      elastic_node_count = 1
+      logstash_node_count = 0
+      elastic_node_count = 0
     }
 
     couchdb = {
       couch_size = "s-1vcpu-1gb"
       proxy_size = "s-1vcpu-1gb"
-      proxy_provisioned = true
+      proxy_provisioned = false
       haproxy_domain = "couchdb"
       node_count = 0
       disk_size = 30
@@ -63,8 +63,8 @@ variable "cluster_makeup" {
     api = {
       api_size = "s-1vcpu-1gb"
       proxy_size = "s-1vcpu-1gb"
-      api_node_count = 1
-      proxy_provisioned = true
+      api_node_count = 0
+      proxy_provisioned = false
     }
 
     angular = {
