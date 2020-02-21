@@ -53,10 +53,9 @@ couchdb2:
       - file: /usr/local/etc/couchdb2/local.d/custom.ini
 
 /mnt/storage:
-  file.managed:
+  file.directory:
     - user: couchdb
     - group: couchdb
-    - replace: False
     - require:
       - cmd: storage_bootstrap
 
