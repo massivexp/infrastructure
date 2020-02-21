@@ -1,0 +1,25 @@
+global
+    daemon
+    maxconn 1000
+    stats socket 127.0.0.1:14567
+
+defaults
+    mode http
+    timeout connect 2000ms
+    timeout client 120000ms
+    timeout server 120000ms
+
+listen stats
+   bind {{ salt['network.interface_ip']('vtnet1') }}:14567
+   stats enable
+   stats uri /stats
+
+frontend http-in
+    bind *:80
+    bind *:443 ssl crt /usr/local/etc/letsencrypt/live/{{ grains['fqdn'] }}/{{ grains['fqdn'] }}.pem
+    redirect scheme https if !{ ssl_fc }
+    default_backend servers
+
+backend servers
+    {% for address in salt['mine.get']('G@roles:kibana and not G@roles:haproxy', 'private_ip', tgt_type='compound').items() %}server kibana{{ loop.index }} {{ address[1] }}:5601 maxconn 500 check on-marked-down shutdown-sessions
+    {% endfor %}
