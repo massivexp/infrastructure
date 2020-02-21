@@ -22,7 +22,6 @@ cluster.name: massivexp-logging
 #
 node.name: {{ grains['id'] }}
 node.master: true
-replicas: 1
 #
 # Add custom attributes to the node:
 #
@@ -56,7 +55,6 @@ path.logs: /var/log/elasticsearch
 #
 # Set the bind address to a specific IP (IPv4 or IPv6):
 #
-discovery.seed_hosts: ['{{ salt['network.interface_ip']('vtnet1') }}']
 network.host: {{ salt['network.interface_ip']('vtnet1') }}
 #
 # Set a custom port for HTTP:
