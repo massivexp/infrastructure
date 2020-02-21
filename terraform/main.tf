@@ -54,7 +54,7 @@ variable "cluster_makeup" {
     couchdb = {
       couch_size = "s-1vcpu-1gb"
       proxy_size = "s-1vcpu-1gb"
-      proxy_provisioned = false
+      proxy_provisioned = true
       haproxy_domain = "couchdb"
       node_count = 1
       disk_size = 30
