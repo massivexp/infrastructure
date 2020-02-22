@@ -50,7 +50,7 @@ base:
     - match: compound
     - haproxy.couchdb
 
-  'nodejs_pipeline':
+  'nodejs-pipeline-*':
     - nodejs_pipeline
 
   'G@roles:pm2 and G@roles:haproxy':
