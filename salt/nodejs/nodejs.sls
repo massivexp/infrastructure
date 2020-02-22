@@ -54,7 +54,7 @@ pm2_root:
 
 /usr/local/etc/process.yml:
   file.managed:
-    - source: salt:///files/nodejs_api/pm2.process.jinja.yml
+    - source: salt:///files/nodejs/pm2.process.jinja.yml
     - template: jinja
     - defaults:
       package_name: "pipeline"
