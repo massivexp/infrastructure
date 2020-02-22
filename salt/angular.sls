@@ -1,8 +1,10 @@
+{% set package_version = "0.0.1" %}
+
 extend:
   apache24:
     service.running:
       - require:
-        - npm: "@massivexp/dashboard@0.0.1"
+        - npm: "@massivexp/dashboard@{{ package_version }}"
 
 git:
   pkg.installed
@@ -10,7 +12,9 @@ git:
 www/npm:
   pkg.installed
 
-"@massivexp/dashboard@0.0.1":
+install_angular_app_from_npm:
   npm.installed:
+    - name: "@massivexp/dashboard@{{ package_version }}"
+    - registry: https://npm.pkg.github.com/
     - require:
       - pkg: www/npm
