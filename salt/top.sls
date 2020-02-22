@@ -58,6 +58,7 @@ base:
 
   'G@roles:pm2 and not G@roles:haproxy':
     - match: compound
+    - nodejs.config
     - nodejs.nodejs
 
   'G@roles:pm2 and G@roles:haproxy':
@@ -66,5 +67,6 @@ base:
 
   'roles:angular':
     - match: grain
+    - npm.config
     - apache.angular
     - angular

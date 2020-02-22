@@ -14,7 +14,7 @@ www/npm:
 
 install_angular_app_from_npm:
   npm.installed:
-    - name: "@massivexp/dashboard@{{ package_version }}"
+    - name: "@massivexp/massivexp@{{ package_version }}"
     - registry: https://npm.pkg.github.com/
     - require:
       - pkg: www/npm

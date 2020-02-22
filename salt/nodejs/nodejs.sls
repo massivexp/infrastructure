@@ -11,13 +11,6 @@ www/npm:
     - require:
       - cmd: pkg install -y libnghttp2
 
-/usr/local/lib/node_modules/npm/npmrc:
-  file.managed:
-    - source: salt:///files/npm/npmrc.jinja
-    - template: jinja
-    - require:
-      - pkg: www/npm
-
 install_package_from_npm:
   npm.installed:
     - name: "@massivexp/pipeline@0.0.1"
