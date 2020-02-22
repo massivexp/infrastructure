@@ -8,9 +8,8 @@ extend:
           - /.pm2/logs/api-error-0.log
           - /.pm2/logs/api-out-0.log
   install_package_from_npm:
-    cmd.run:
-      - name: npm install @massivexp/api@{{ package_version }} && echo "ok" > .installed_api_{{ package_version }}
-      - creates: .installed_api_{{ package_version }}
+    npm.installed:
+      - name: @massivexp/api@{{ package_version }}
   /usr/local/etc/process.yml:
     file.managed:
       - defaults:

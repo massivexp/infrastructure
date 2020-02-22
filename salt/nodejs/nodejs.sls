@@ -19,9 +19,8 @@ www/npm:
       - pkg: www/npm
 
 install_package_from_npm:
-  cmd.run:
-    - name: npm install @massivexp/pipeline@0.0.1 && echo "ok" > .installed_pipeline_0.0.1
-    - creates: .installed_pipeline_0.0.1
+  npm.installed:
+    - name: @massivexp/pipeline@0.0.1
 
 pm2:
   npm.installed:
@@ -44,7 +43,7 @@ pm2 start --hp / /usr/local/etc/process.yml:
     - unless: pm2 describe --hp / pipeline
     - require:
       - npm: pm2
-      - cmd: install_package_from_npm
+      - npm: install_package_from_npm
       - file: /usr/local/etc/process.yml
 
 pm2_root:
