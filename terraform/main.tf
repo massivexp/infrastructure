@@ -63,8 +63,8 @@ variable "cluster_makeup" {
     api = {
       api_size = "s-1vcpu-1gb"
       proxy_size = "s-1vcpu-1gb"
-      api_node_count = 0
-      proxy_provisioned = false
+      api_node_count = 1
+      proxy_provisioned = true
     }
 
     angular = {
