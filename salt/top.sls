@@ -67,6 +67,6 @@ base:
 
   'roles:angular':
     - match: grain
-    - npm.config
+    - nodejs.config
     - apache.angular
     - angular
