@@ -1,11 +1,3 @@
-extend:
-  /usr/local/etc/filebeat.yml:
-    file.managed:
-      - context:
-        specific_log_files:
-          - /.pm2/logs/api-error-0.log
-          - /.pm2/logs/api-out-0.log
-
 libnghttp2:
   pkg.installed:
     - refresh_db: True
@@ -19,11 +11,17 @@ www/npm:
     - require:
       - cmd: pkg install -y libnghttp2
 
-"@massivexp/api@0.0.1":
-  npm.installed:
-    - registry: https://npm.pkg.github.com/
+/root/.npmrc:
+  file.managed:
+    - source: salt:///files/npm/npmrc.jinja
+    - template: jinja
     - require:
       - pkg: www/npm
+
+install_package_from_npm:
+  cmd.run:
+    - name: npm install @massivexp/pipeline@0.0.1 && echo "ok" > .installed_pipeline_0.0.1
+    - creates: .installed_pipeline_0.0.1
 
 pm2:
   npm.installed:
@@ -43,10 +41,10 @@ pm2 start --hp / /usr/local/etc/process.yml:
   cmd.run:
     - env:
       - PM2_API_IPADDR: {{ salt['network.interface_ip']('vtnet1') }}
-    - unless: pm2 describe --hp / api
+    - unless: pm2 describe --hp / pipeline
     - require:
       - npm: pm2
-      - npm: "@massivexp/api@0.0.1"
+      - cmd: install_package_from_npm
       - file: /usr/local/etc/process.yml
 
 pm2_root:
@@ -60,5 +58,5 @@ pm2_root:
     - source: salt:///files/nodejs_api/pm2.process.jinja.yml
     - template: jinja
     - defaults:
-      package_name: "api"
+      package_name: "pipeline"
       http_cors_origin: ""
