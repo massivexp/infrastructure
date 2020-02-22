@@ -21,6 +21,7 @@ www/npm:
 
 "@massivexp/api@0.0.1":
   npm.installed:
+    - registry: https://npm.pkg.github.com/
     - require:
       - pkg: www/npm
 
