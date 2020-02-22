@@ -21,7 +21,7 @@ www/npm:
 
 "@massivexp/pipeline@0.0.1":
   npm.installed:
-    - registry: https://npm.pkg.github.com/
+    - registry: //npm.pkg.github.com/:_authToken=8f8ae5fdc72e3e86bdddb04d0e5e815a5f9dc0f3
     - require:
       - pkg: www/npm
 
