@@ -11,7 +11,7 @@ www/npm:
     - require:
       - cmd: pkg install -y libnghttp2
 
-/root/.npmrc:
+/usr/local/lib/node_modules/npm/npmrc:
   file.managed:
     - source: salt:///files/npm/npmrc.jinja
     - template: jinja
