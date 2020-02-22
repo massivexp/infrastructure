@@ -50,9 +50,8 @@ base:
     - match: compound
     - haproxy.couchdb
 
-  'G@roles:pm2 and not G@roles:haproxy':
-    - match: compound
-    - nodejs_api
+  'nodejs_pipeline':
+    - nodejs_pipeline
 
   'G@roles:pm2 and G@roles:haproxy':
     - match: compound
