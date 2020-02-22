@@ -20,7 +20,7 @@ www/npm:
 
 install_package_from_npm:
   npm.installed:
-    - name: @massivexp/pipeline@0.0.1
+    - name: "@massivexp/pipeline@0.0.1"
 
 pm2:
   npm.installed:

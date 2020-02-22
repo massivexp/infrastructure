@@ -9,7 +9,7 @@ extend:
           - /.pm2/logs/api-out-0.log
   install_package_from_npm:
     npm.installed:
-      - name: @massivexp/api@{{ package_version }}
+      - name: "@massivexp/api@{{ package_version }}"
   /usr/local/etc/process.yml:
     file.managed:
       - defaults:

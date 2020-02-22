@@ -9,7 +9,7 @@ extend:
           - /.pm2/logs/pipeline-out-0.log
   install_package_from_npm:
     npm.installed:
-      - name: @massivexp/pipeline@{{ package_version }}
+      - name: "@massivexp/pipeline@{{ package_version }}"
   /usr/local/etc/process.yml:
     file.managed:
       - defaults:
