@@ -4,7 +4,7 @@ extend:
   apache24:
     service.running:
       - require:
-        - npm: "@massivexp/dashboard@{{ package_version }}"
+        - npm: install_angular_app_from_npm
 
 git:
   pkg.installed
