@@ -1,26 +1,15 @@
 {% set databases = ['_users', '_global_changes', '_replicator', 'massivexp_sysinfo', 'user_profiles', 'invite_codes', 'feed_hotclicks', 'feeds', 'comments', 'ingress_comments', 'ingress_reactions'] %}
 {% set schema = {
-  'ingress_mkeen_comments_0': {
-    'admins': {
-      'roles': ['mkeen_member']
+  'ingress_mkeen_comments_0': "{
+    \'admins\': {
+      \'roles\': [\'mkeen_member\']
     },
 
-    'members': {
-      'roles': ['mkeen_guest']
+    \'members\': {
+      \'roles\': [\'mkeen_guest\']
     }
 
-  },
-
-  'state_mkeen_comments_0': {
-    'admins': {
-      'names': [grains['couch_user']]
-    },
-
-    'members': {
-      'roles': ['mkeen_guest']
-    }
-
-  }
+  }"
 
 } %}
 
@@ -92,7 +81,7 @@ couchdb2:
     - output_loglevel: quiet
     - require:
       - service: couchdb2
-"curl -X PUT -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/{{ [database][0] }}/_security' -d '{{ schema[[database][0]] | json }}' > '/root/created-{{ [database][0] }}-security'":
+"curl -X PUT -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/{{ [database][0] }}/_security' -d '{{ schema[[database][0]] }}' > '/root/created-{{ [database][0] }}-security'":
   cmd.run:
     - creates: /root/created-{{ [database][0] }}-security
     - hide_output: True
