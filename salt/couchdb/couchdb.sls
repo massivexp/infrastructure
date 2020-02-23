@@ -61,10 +61,10 @@ couchdb2:
       - cmd: storage_bootstrap
 
 {% if grains['id'] == 'couchdb-a' %}
-{% for database in _schema %}
-"curl -X PUT -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/{{ database.key().name() }}' -d '' > '/root/created-{{ database.key().name() }}-database'":
+{% for database in _schema.databases %}
+"curl -X PUT -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/{{ database }}' -d '' > '/root/created-{{ database }}-database'":
   cmd.run:
-    - creates: /root/created-{{ database.key().name() }}-database
+    - creates: /root/created-{{ database }}-database
     - hide_output: True
     - output_loglevel: quiet
     - require:
