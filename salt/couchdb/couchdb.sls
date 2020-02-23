@@ -1,8 +1,19 @@
 {% set databases = ['_users', '_global_changes', '_replicator', 'massivexp_sysinfo', 'user_profiles', 'invite_codes', 'feed_hotclicks', 'feeds', 'comments', 'ingress_comments', 'ingress_reactions'] %}
 {% set schema = {
-  'ingress_mkeen_comments_0' = {
+  'ingress_mkeen_comments_0': {
     'admins': {
       'roles': ['mkeen_member']
+    },
+
+    'members': {
+      'roles': ['mkeen_guest']
+    }
+
+  },
+
+  'state_mkeen_comments_0': {
+    'admins': {
+      'names': ['{{ grains["couch_user"] }}']
     },
 
     'members': {
@@ -81,7 +92,6 @@ couchdb2:
     - output_loglevel: quiet
     - require:
       - service: couchdb2
-{% if database['admins'] %}
 "curl -X PUT -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/{{ [database][0] }}/_security' -d {{ database }} > '/root/created-{{ [database][0] }}-security'":
   cmd.run:
     - creates: /root/created-{{ [database][0] }}-security
@@ -89,7 +99,6 @@ couchdb2:
     - output_loglevel: quiet
     - require:
       - cmd: "curl -X PUT -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/{{ [database][0] }}' -d '' > '/root/created-{{ [database][0] }}-database'"
-{% endif %}
 {% endfor %}
 {% endif %}
 
