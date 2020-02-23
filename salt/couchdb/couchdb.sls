@@ -1,5 +1,5 @@
 {% set databases = ['_users', '_global_changes', '_replicator', 'massivexp_sysinfo', 'user_profiles', 'invite_codes', 'feed_hotclicks', 'feeds', 'comments', 'ingress_comments', 'ingress_reactions'] %}
-{% set _schema = salt[pillar.get('couchdb.schema')]}
+{% set _schema = salt[pillar.get('couchdb.schema')] %}
 
 extend:
   /usr/local/etc/filebeat.yml:
