@@ -1,12 +1,12 @@
 {% set databases = ['_users', '_global_changes', '_replicator', 'massivexp_sysinfo', 'user_profiles', 'invite_codes', 'feed_hotclicks', 'feeds', 'comments', 'ingress_comments', 'ingress_reactions'] %}
 {% set schema = {
   'ingress_mkeen_comments_0': '{
-    \\"admins\\": {
-      \\"roles\\": [\\'mkeen_member\\']
+    "admins": {
+      "roles": ["mkeen_member"]
     },
 
-    \\"members\\": {
-      \\"roles\\": [\\"mkeen_guest\\"]
+    "members": {
+      "roles": ["mkeen_guest"]
     }
 
   }'
