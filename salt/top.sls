@@ -8,9 +8,6 @@ base:
   'saltm':
     - master
 
-  'couchdb-a':
-    - couchdb.schema
-
   'roles:storage':
     - match: grain
     - storage
