@@ -59,16 +59,10 @@ couchdb2:
     - group: couchdb
     - require:
       - cmd: storage_bootstrap
-
+mike:
 {% if grains['id'] == 'couchdb-a' %}
 {% for database in _schema %}
-"curl -X PUT -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/{{ database.key().name() }}' -d '' > '/root/created-{{ database.key().name() }}-database'":
-  cmd.run:
-    - creates: /root/created-{{ database.key().name() }}-database
-    - hide_output: True
-    - output_loglevel: quiet
-    - require:
-      - service: couchdb2
+  - cool
 {% endfor %}
 {% endif %}
 
