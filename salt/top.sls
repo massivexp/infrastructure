@@ -44,7 +44,7 @@ base:
 
   'G@roles:couchdb and not G@roles:haproxy':
     - match: compound
-    - couchdb
+    - couchdb.couchdb
 
   'G@roles:couchdb and G@roles:haproxy':
     - match: compound
