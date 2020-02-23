@@ -92,6 +92,15 @@ couchdb2:
     - output_loglevel: quiet
     - require:
       - service: couchdb2
+{% if database['admins'] || database['members'] }
+"curl -X PUT -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/{{ [database][0] }}/_security' -d {{ database }} > '/root/created-{{ [database][0] }}-security'":
+  cmd.run:
+    - creates: /root/created-{{ [database][0] }}-security
+    - hide_output: True
+    - output_loglevel: quiet
+    - require:
+      - cmd: "curl -X PUT -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/{{ [database][0] }}' -d '' > '/root/created-{{ [database][0] }}-database'"
+{% endif %}
 {% endfor %}
 {% endif %}
 
