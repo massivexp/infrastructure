@@ -81,7 +81,7 @@ couchdb2:
     - output_loglevel: quiet
     - require:
       - service: couchdb2
-"curl -X PUT -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/{{ [database][0] }}/_security' -d {{ schema[[database][0]] }} > '/root/created-{{ [database][0] }}-security'":
+"curl -X PUT -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/{{ [database][0] }}/_security' -d '{{ schema[[database][0]] }}' > '/root/created-{{ [database][0] }}-security'":
   cmd.run:
     - creates: /root/created-{{ [database][0] }}-security
     - hide_output: True
