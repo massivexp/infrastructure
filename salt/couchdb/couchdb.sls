@@ -13,7 +13,7 @@
 
   'state_mkeen_comments_0': {
     'admins': {
-      'names': ['{{ grains["couch_user"] }}']
+      'names': [grains["couch_user"]]
     },
 
     'members': {
