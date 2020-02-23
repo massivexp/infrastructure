@@ -1,5 +1,28 @@
 {% set databases = ['_users', '_global_changes', '_replicator', 'massivexp_sysinfo', 'user_profiles', 'invite_codes', 'feed_hotclicks', 'feeds', 'comments', 'ingress_comments', 'ingress_reactions'] %}
-{% set _schema = pillar.get('schema').items() %}
+{% set schema = {
+  ingress_mkeen_comments_0: {
+    admins: {
+      roles: ['mkeen_member']
+    },
+
+    members: {
+      roles: ['mkeen_guest']
+    }
+
+  },
+
+  state_mkeen_comments_0: {
+    admins: {
+      names: ['{{ grains['couch_user'] }}']
+    },
+
+    members: {
+      roles: ['mkeen_guest']
+    }
+
+  }
+
+} %}
 
 extend:
   /usr/local/etc/filebeat.yml:
@@ -61,10 +84,10 @@ couchdb2:
       - cmd: storage_bootstrap
 
 {% if grains['id'] == 'couchdb-a' %}
-{% for database in _schema.databases %}
-"curl -X PUT -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/{{ database }}' -d '' > '/root/created-{{ database }}-database'":
+{% for database in schema %}
+"curl -X PUT -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/{{ [database][0] }}' -d '' > '/root/created-{{ [database][0] }}-database'":
   cmd.run:
-    - creates: /root/created-{{ database }}-database
+    - creates: /root/created-{{ [database][0] }}-database
     - hide_output: True
     - output_loglevel: quiet
     - require:
