@@ -1,4 +1,6 @@
 {% set databases = ['_users', '_global_changes', '_replicator', 'massivexp_sysinfo', 'user_profiles', 'invite_codes', 'feed_hotclicks', 'feeds', 'comments', 'ingress_comments', 'ingress_reactions'] %}
+{% set _schema = salt[pillar.get('schema')] %}
+
 extend:
   /usr/local/etc/filebeat.yml:
     file.managed:
@@ -59,7 +61,7 @@ couchdb2:
       - cmd: storage_bootstrap
 
 {% if grains['id'] == 'couchdb-a' %}
-{% for database in schema %}
+{% for database in _schema %}
 "curl -X PUT -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/{{ database.key().name() }}' -d '' > '/root/created-{{ database.key().name() }}-database'":
   cmd.run:
     - creates: /root/created-{{ database.key().name() }}-database
