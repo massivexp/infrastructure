@@ -1,5 +1,5 @@
 {% set databases = ['_users', '_global_changes', '_replicator', 'massivexp_sysinfo', 'user_profiles', 'invite_codes', 'feed_hotclicks', 'feeds', 'comments', 'ingress_comments', 'ingress_reactions'] %}
-{% set _schema = pillar.get('schema', {}).items() %}
+{% set _schema = pillar.get('schema').items() %}
 
 extend:
   /usr/local/etc/filebeat.yml:
