@@ -1,4 +1,4 @@
-{% set package_version = "0.0.3" %}
+{% set package_version = "0.0.5" %}
 
 extend:
   apache24:
