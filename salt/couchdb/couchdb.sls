@@ -12,7 +12,8 @@
 
 {% set seed = {
   'experiences': '{\\"_id\\": \\"library\\", \\"names\\": [\\"conversation\\"]}',
-  'experiences_ingress_running': '{\\"_id\\": \\"index\\"}'
+  'experiences_ingress_running': '{\\"_id\\": \\"index\\"}',
+  'experiences_aggregate_running': '{\\"_id\\": \\"index\\"}'
 } %}
 
 extend:
@@ -104,6 +105,12 @@ couchdb2:
 "curl -X POST -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/experiences_ingress_running' -d '{{ seed['experiences_ingress_running'] }}' > '/root/seeded-experiences'":
   cmd.run:
     - creates: /root/seeded-experiences_ingress_running
+    - hide_output: True
+    - output_loglevel: quiet
+
+"curl -X POST -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/experiences_aggregate_running' -d '{{ seed['experiences_aggregate_running'] }}' > '/root/seeded-experiences_aggregate_running'":
+  cmd.run:
+    - creates: /root/seeded-experiences_aggregate_running
     - hide_output: True
     - output_loglevel: quiet
 
