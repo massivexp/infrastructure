@@ -99,8 +99,5 @@ couchdb2:
     - creates: /root/seeded-experiences
     - hide_output: True
     - output_loglevel: quiet
-    - require:
-      - cmd: "curl -X PUT -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/experiences' -d '' > '/root/created-experiences-database'"
-
 
 # terragon 2019-2020
