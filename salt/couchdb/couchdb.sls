@@ -12,8 +12,8 @@
 
 {% set seed = {
   'experiences': '{\\"_id\\": \\"library\\", \\"names\\": [\\"conversation\\"]}',
-  'experiences_ingress_running': '{\\"_id\\": \\"index\\"}',
-  'experiences_aggregate_running': '{\\"_id\\": \\"index\\"}'
+  'experiences_ingress_running': '{\\"_id\\": \\"index\\", \\"running\\": []}',
+  'experiences_aggregate_running': '{\\"_id\\": \\"index\\", \\"running\\": []}'
 } %}
 
 extend:

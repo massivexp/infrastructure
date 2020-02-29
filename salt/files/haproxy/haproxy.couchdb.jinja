@@ -24,7 +24,7 @@ frontend http-in
     bind *:443 ssl crt /usr/local/etc/letsencrypt/live/{{ grains['fqdn'] }}/{{ grains['fqdn'] }}.pem
     redirect scheme https if !{ ssl_fc }
     default_backend servers
-    http-request deny if { path -i -m beg /_utils }
+    #http-request deny if { path -i -m beg /_utils }
     http-request deny if { path -i -m beg /_active_tasks }
     http-request deny if { path -i -m beg /_all_dbs }
     http-request deny if { path -i -m beg /_dbs_info }
