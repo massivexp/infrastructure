@@ -14,4 +14,4 @@ extend:
     file.managed:
       - defaults:
         package_name: "api"
-        http_cors_origin: ""
+        http_cors_origin: "https://www.massivexp.com"
