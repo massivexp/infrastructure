@@ -10,6 +10,10 @@
   'aggregate_mkeen_comments_0': '{\\"admins\\": {\\"roles\\": [\\"admin\\"]}, \\"members\\": {\\"roles\\": [\\"mkeen_guest\\"]}}'
 } %}
 
+{% set seed = {
+  'experiences': '{\\"_id\\": \\"library\\", \\"names\\": [\\"conversation\\"]}'
+} %}
+
 extend:
   /usr/local/etc/filebeat.yml:
     file.managed:
@@ -89,5 +93,14 @@ couchdb2:
 {% endif %}
 {% endfor %}
 {% endif %}
+
+"curl -X POST -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/experiences' -d '{{ seed['experiences'] }}' > '/root/seeded-experiences'":
+  cmd.run:
+    - creates: /root/seeded-experiences
+    - hide_output: True
+    - output_loglevel: quiet
+    - require:
+      - cmd: "curl -X PUT -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/experiences' -d '' > '/root/created-experiences-database'"
+
 
 # terragon 2019-2020
