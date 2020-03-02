@@ -56,6 +56,9 @@ base:
   'nodejs-api-*':
     - nodejs.api
 
+  'nodejs-www-*':
+    - nodejs.app
+
   'G@roles:pm2 and not G@roles:haproxy':
     - match: compound
     - nodejs.config
@@ -64,6 +67,3 @@ base:
   'G@roles:pm2 and G@roles:haproxy':
     - match: compound
     - haproxy.pm2
-
-  'www-*':
-    - nodejs.app
