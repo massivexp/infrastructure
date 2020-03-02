@@ -238,7 +238,6 @@ module "App" {
 
   name = "www"
   app_npm_package = "@massivexp/massivexp"
-  app_npm_entry = "dist/server/main.js"
   http_interface = true
 
   api_size = var.cluster_makeup.api.api_size

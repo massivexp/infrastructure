@@ -15,7 +15,6 @@ variable "api_size" {}
 variable "tld" {}
 variable "name" {}
 variable "app_npm_package" {}
-variable "app_npm_entry" {}
 
 variable "stripe_api_key" {
   default = ""
