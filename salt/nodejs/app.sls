@@ -14,4 +14,4 @@ extend:
     file.managed:
       - context:
         package_name: "massivexp"
-        application_entry: "dist/massivexp/server"
+        application_entry: "dist/massivexp"
