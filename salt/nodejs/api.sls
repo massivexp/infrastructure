@@ -12,6 +12,6 @@ extend:
       - name: "@massivexp/api@{{ package_version }}"
   /usr/local/etc/process.yml:
     file.managed:
-      - defaults:
+      - context:
         package_name: "api"
         http_cors_origin: "https://www.massivexp.com"
