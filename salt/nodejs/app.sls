@@ -14,5 +14,5 @@ extend:
     file.managed:
       - context:
         package_name: "massivexp"
-        application_working_directory: "dist/massivexp"
+        application_working_directory: ""
         application_entry: "server/main.js"
