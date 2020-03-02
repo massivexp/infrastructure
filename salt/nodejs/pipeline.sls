@@ -5,8 +5,8 @@ extend:
     file.managed:
       - context:
         specific_log_files:
-          - /.pm2/logs/pipeline-error-0.log
-          - /.pm2/logs/pipeline-out-0.log
+          - /.pm2/logs/pipeline-error.log
+          - /.pm2/logs/pipeline-out.log
   install_package_from_npm:
     npm.installed:
       - name: "@massivexp/pipeline@{{ package_version }}"

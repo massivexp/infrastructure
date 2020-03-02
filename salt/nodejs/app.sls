@@ -5,8 +5,8 @@ extend:
     file.managed:
       - context:
         specific_log_files:
-          - /.pm2/logs/massivexp-error-0.log
-          - /.pm2/logs/massivexp-out-0.log
+          - /.pm2/logs/massivexp-error.log
+          - /.pm2/logs/massivexp-out.log
   install_package_from_npm:
     npm.installed:
       - name: "@massivexp/massivexp@{{ package_version }}"
