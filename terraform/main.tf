@@ -67,6 +67,10 @@ variable "cluster_makeup" {
       proxy_provisioned = true
     }
 
+    app = {
+      node_count = 0
+    }
+
     angular = {
       size = "s-1vcpu-1gb"
     }
@@ -243,7 +247,7 @@ module "App" {
   api_size = var.cluster_makeup.api.api_size
   proxy_size = var.cluster_makeup.api.proxy_size
   proxy_provisioned = var.cluster_makeup.api.proxy_provisioned
-  pm2_nodes = var.cluster_makeup.api.api_node_count
+  pm2_nodes = var.cluster_makeup.app.node_count
   couchdb_user = module.CouchDB.user
   couchdb_pass = module.CouchDB.pass
   couchdb_droplet_ids = module.CouchDB.droplet_ids
