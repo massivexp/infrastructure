@@ -12,5 +12,5 @@ extend:
       - name: "@massivexp/massivexp@{{ package_version }}"
   /usr/local/etc/process.yml:
     file.managed:
-      - defaults:
+      - context:
         package_name: "massivexp"
