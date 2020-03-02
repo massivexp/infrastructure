@@ -17,11 +17,6 @@ base:
     - letsencrypt
     - haproxy.haproxy
 
-  'roles:apache':
-    - match: grain
-    - letsencrypt
-    - apache.apache
-
   'roles:logstash':
     - match: grain
     - logstash
@@ -34,20 +29,21 @@ base:
     - match: grain
     - elasticsearch
 
-  'G@roles:kibana and not G@roles:haproxy':
+  'G@roles:pm2 and not G@roles:haproxy':
     - match: compound
+    - nodejs.config
+    - nodejs.nodejs
+
+  'kibana-*':
     - kibana
 
-  'G@roles:haproxy and G@roles:kibana':
-    - match: compound
+  'haproxy-kibana-*':
     - haproxy.kibana
 
-  'G@roles:couchdb and not G@roles:haproxy':
-    - match: compound
+  'couchdb-*':
     - couchdb.couchdb
 
-  'G@roles:couchdb and G@roles:haproxy':
-    - match: compound
+  'haproxy-couchdb-*':
     - haproxy.couchdb
 
   'nodejs-pipeline-*':
@@ -59,11 +55,5 @@ base:
   'nodejs-www-*':
     - nodejs.app
 
-  'G@roles:pm2 and not G@roles:haproxy':
-    - match: compound
-    - nodejs.config
-    - nodejs.nodejs
-
-  'G@roles:pm2 and G@roles:haproxy':
-    - match: compound
-    - haproxy.pm2
+  'haproxy-nodejs-www-*':
+    - haproxy.app
