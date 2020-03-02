@@ -54,4 +54,3 @@ pm2_root:
       application_entry: "server.js"
       application_working_directory: "dist"
       http_cors_origin: ""
-  
