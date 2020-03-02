@@ -1,6 +1,7 @@
 apps:
-  - script: /usr/local/lib/node_modules/@massivexp/{{ package_name }}/{{ application_entry }}
+  - script: {{ application_entry }}
     name: {{ package_name }}
+    cwd: /usr/local/lib/node_modules/@massivexp/{{ package_name }}/{{ application_working_directory }}
     env:
       API_BIND_IP: {{ salt['network.interface_ip']('vtnet1') }}
       COUCH_HOST: {{ salt['mine.get']('couchdb-a', 'private_ip')['couchdb-a'] }}
