@@ -12,6 +12,6 @@ extend:
       - name: "@massivexp/pipeline@{{ package_version }}"
   /usr/local/etc/process.yml:
     file.managed:
-      - defaults:
+      - context:
         package_name: "pipeline"
         http_cors_origin: ""
