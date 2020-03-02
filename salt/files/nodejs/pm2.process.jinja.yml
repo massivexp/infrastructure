@@ -1,5 +1,5 @@
 apps:
-  - script: /usr/local/lib/node_modules/@massivexp/{{ package_name }}/dist/server.js
+  - script: /usr/local/lib/node_modules/@massivexp/{{ package_name }}/{{ application_entry }}
     instances: 1
     name: {{ package_name }}
     env:

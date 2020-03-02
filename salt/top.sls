@@ -65,8 +65,5 @@ base:
     - match: compound
     - haproxy.pm2
 
-  'roles:angular':
-    - match: grain
-    - nodejs.config
-    - apache.angular
-    - angular
+  'www-*':
+    - nodejs.app

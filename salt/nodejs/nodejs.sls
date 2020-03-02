@@ -51,4 +51,5 @@ pm2_root:
     - template: jinja
     - defaults:
       package_name: "pipeline"
+      application_entry: "dist/server.js"
       http_cors_origin: ""
