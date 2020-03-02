@@ -25,6 +25,6 @@ frontend http-in
 backend servers
     mode http
     balance roundrobin
-    {% for address in salt['mine.get']('nodejs-web-*', 'private_ip').items() %}
+    {% for address in salt['mine.get']('nodejs-www-*', 'private_ip').items() %}
     server {{address[0]}} {{ address[1] }}:3000 check
     {% endfor %}
