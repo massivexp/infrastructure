@@ -68,7 +68,7 @@ variable "cluster_makeup" {
     }
 
     app = {
-      node_count = 1
+      node_count = 0
     }
 
     angular = {
