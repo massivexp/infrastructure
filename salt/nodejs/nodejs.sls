@@ -49,7 +49,7 @@ pm2_root:
   file.managed:
     - source: salt:///files/nodejs/pm2.process.jinja.yml
     - template: jinja
-    - context:
+    - defaults:
       package_name: "pipeline"
       application_entry: "dist/server.js"
       http_cors_origin: ""
