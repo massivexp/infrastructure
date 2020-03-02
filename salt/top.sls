@@ -52,6 +52,9 @@ base:
   'nodejs-api-*':
     - nodejs.api
 
+  'haproxy-nodejs-api-*':
+    - haproxy.api
+
   'nodejs-www-*':
     - nodejs.app
 
