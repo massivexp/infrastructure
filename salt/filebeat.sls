@@ -1,4 +1,3 @@
-{% set has_lp_running = salt['mine.get']('roles:logstash', 'private_ip', tgt_type='grain').items()|length > 0 %}
 beats:
   pkg.installed
 
@@ -18,12 +17,7 @@ beats:
       specific_log_files: []
 
 filebeat:
-{% if has_lp_running %}
   service.running:
     - enable: True
     - watch:
       - file: /usr/local/etc/filebeat.yml
-{% else %}
-  service.dead:
-    - enable: False
-{% endif %}
