@@ -8,7 +8,7 @@ portsnap extract:
     - require:
       - cmd: portsnap_fetch
 
-elasticsearch:
+kibana:
   ports.installed:
     - name: textproc/kibana7
     - require:
