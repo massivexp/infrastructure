@@ -94,7 +94,6 @@ couchdb2:
       - cmd: "curl -X PUT -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/{{ [database][0] }}' -d '' > '/root/created-{{ [database][0] }}-database'"
 {% endif %}
 {% endfor %}
-{% endif %}
 
 "curl -X POST -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/experiences' -d '{{ seed['experiences'] }}' > '/root/seeded-experiences'":
   cmd.run:
@@ -113,5 +112,6 @@ couchdb2:
     - creates: /root/seeded-experiences_aggregate_running
     - hide_output: True
     - output_loglevel: quiet
+{% endif %}
 
 # terragon 2019-2020
