@@ -9,6 +9,7 @@ gitfs_remotes:
 gitfs_root: salt
 gitfs_privkey: /root/.ssh/id_rsa
 gitfs_pubkey: /root/.ssh/id_rsa.pub
+log_level: warning
 
 transport: zeromq
 file_recv: True
