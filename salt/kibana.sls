@@ -1,6 +1,18 @@
-kibana:
-  pkg.installed:
-    - name: kibana6
+include:
+  - java
+  - portsnap
+
+portsnap extract:
+  cmd.run:
+    - creates: /usr/ports/textproc/kibana7
+    - require:
+      - cmd: portsnap_fetch
+
+elasticsearch:
+  ports.installed:
+    - name: textproc/kibana7
+    - require:
+      - cmd: portsnap extract
   service.running:
     - enable: True
     - watch:
