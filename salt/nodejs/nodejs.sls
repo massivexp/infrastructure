@@ -33,7 +33,7 @@ pm2 start --hp / /usr/local/etc/process.yml:
   cmd.run:
     - env:
       - PM2_API_IPADDR: {{ salt['network.interface_ip']('vtnet1') }}
-    - unless: pm2 describe --hp / pipeline
+    - unless: pm2 jlist --hp / | jq .[0].pm2_env.version | grep 0.0.1
     - require:
       - npm: pm2
       - npm: install_package_from_npm

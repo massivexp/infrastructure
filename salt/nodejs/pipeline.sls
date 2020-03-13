@@ -15,3 +15,6 @@ extend:
       - context:
         package_name: "pipeline"
         http_cors_origin: ""
+  pm2 start --hp / /usr/local/etc/process.yml:
+    cmd.run:
+      - unless: pm2 jlist --hp / | jq .[0].pm2_env.version | grep {{ package_version }}

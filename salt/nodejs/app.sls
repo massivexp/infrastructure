@@ -16,3 +16,6 @@ extend:
         package_name: "massivexp"
         application_working_directory: ""
         application_entry: "dist/massivexp/server/main.js"
+  pm2 start --hp / /usr/local/etc/process.yml:
+    cmd.run:
+      - unless: pm2 jlist --hp / | jq .[0].pm2_env.version | grep {{ package_version }}
