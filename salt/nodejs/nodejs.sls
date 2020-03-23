@@ -8,7 +8,7 @@ pkg install -y libnghttp2:
 
 npm:
   pkg.installed:
-    - name: npm-node12-6.12.1
+    - name: npm-node12
     - require:
       - cmd: pkg install -y libnghttp2
 
