@@ -18,7 +18,7 @@ install_package_from_npm:
 pm2:
   npm.installed:
     - require:
-      - pkg: www/npm
+      - pkg: npm-node12-6.12.1
 
 pm2 startup --hp /:
   cmd.run:
