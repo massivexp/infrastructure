@@ -9,11 +9,11 @@ extend:
 git:
   pkg.installed
 
-www/npm:
+npm-node12-6.12.1:
   pkg.installed
 
 install_angular_app_from_npm:
   npm.installed:
     - name: "@massivexp/massivexp@{{ package_version }}"
     - require:
-      - pkg: www/npm
+      - pkg: npm-node12-6.12.1

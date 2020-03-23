@@ -3,4 +3,4 @@
     - source: salt:///files/npm/npmrc.jinja
     - template: jinja
     - require:
-      - pkg: www/npm
+      - pkg: npm-node12-6.12.1
