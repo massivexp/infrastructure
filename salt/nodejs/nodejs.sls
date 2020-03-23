@@ -6,7 +6,7 @@ pkg install -y libnghttp2:
   cmd.run:
     - unless: npm version
 
-www/npm:
+npm-node12-6.12.1:
   pkg.installed:
     - require:
       - cmd: pkg install -y libnghttp2
