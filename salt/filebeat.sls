@@ -1,4 +1,4 @@
-beats:
+beats7:
   pkg.installed
 
 /usr/local/etc/filebeat.yml:
@@ -6,7 +6,7 @@ beats:
     - source: salt:///files/filebeat/filebeat.jinja.yml
     - template: jinja
     - require:
-      - pkg: beats
+      - pkg: beats7
     - defaults:
       log_files:
         - /var/log/auth.log

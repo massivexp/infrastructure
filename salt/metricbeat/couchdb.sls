@@ -5,7 +5,7 @@
     - source: salt:///files/metricbeat/couchdb.jinja.yml
     - template: jinja
     - require:
-      - pkg: beats
+      - pkg: beats7
 
 metricbeat:
 {% if has_lp_running %}
@@ -25,5 +25,5 @@ metricbeat:
   cmd.run:
     - creates: "/root/metricbeat-couchdb-enabled"
     - requires:
-        - pkg: beats
+        - pkg: beats7
 {% endif %}
