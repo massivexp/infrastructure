@@ -59,8 +59,9 @@ module "CouchDBNode" {
   domain_id = var.tld
   keys = var.ssh_keys
   image = var.image
+  disk_size = var.disk_size
 
-  salt_minion_roles = ["couchdb", "minion"]
+  salt_minion_roles = ["couchdb", "minion", "storage"]
   salt_master_droplet_id = var.salt_master_droplet_id
   salt_master_private_ip_address = var.salt_master_private_ip_address
   salt_master_public_ip_address = var.salt_master_public_ip_address
