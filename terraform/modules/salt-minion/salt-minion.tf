@@ -102,7 +102,7 @@ resource "digitalocean_droplet" "salt_minion" {
 resource "digitalocean_volume" "storage" {
   count = var.disk_size > 0 ? var.node_count : 0
   region = var.region
-  name = "s-${var.name}-${var.alpha[count.index]}"
+  name = "${var.name}-${var.alpha[count.index]}"
   size = var.disk_size
   initial_filesystem_type = "ext4" // salt will reformat to zfs
 }

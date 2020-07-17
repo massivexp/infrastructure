@@ -1,3 +1,14 @@
+terraform {
+  backend "remote" {
+    hostname = "app.terraform.io"
+    organization = "massivexp"
+
+    workspaces {
+      name = "infrastructure"
+    }
+  }
+}
+
 variable "stripe_api_key" {}
 variable "digitalocean_api_token" {}
 variable "terraform_cloud_api_token" {}
