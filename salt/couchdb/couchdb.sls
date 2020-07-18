@@ -1,20 +1,21 @@
-#{% set schema = {
-#  '_users': false,
-#  '_global_changes': false,
-#  '_replicator': false,
-#  'experiences': false,
-#  'organizations': false,
-#  'experiences_ingress_running': false,
-#  'experiences_aggregate_running': false,
-#  'ingress_mkeen_comments_0': '{\\"admins\\": {\\"roles\\": [\\"mkeen_member\\"]}, \\"members\\": {\\"roles\\": [\\"mkeen_guest\\"]}}',
-#  'aggregate_mkeen_comments_0': '{\\"admins\\": {\\"roles\\": [\\"admin\\"]}, \\"members\\": {\\"roles\\": [\\"mkeen_guest\\"]}}'
-#} %}
+{#
+{% set schema = {
+  '_users': false,
+  '_global_changes': false,
+  '_replicator': false,
+  'experiences': false,
+  'organizations': false,
+  'experiences_ingress_running': false,
+  'experiences_aggregate_running': false,
+  'ingress_mkeen_comments_0': '{\\"admins\\": {\\"roles\\": [\\"mkeen_member\\"]}, \\"members\\": {\\"roles\\": [\\"mkeen_guest\\"]}}',
+  'aggregate_mkeen_comments_0': '{\\"admins\\": {\\"roles\\": [\\"admin\\"]}, \\"members\\": {\\"roles\\": [\\"mkeen_guest\\"]}}'
+} %}
 
-#{% set seed = {
-#  'experiences': '{\\"_id\\": \\"library\\", \\"names\\": [\\"conversation\\"]}',
-#  'experiences_ingress_running': '{\\"_id\\": \\"index\\", \\"running\\": []}',
-#  'experiences_aggregate_running': '{\\"_id\\": \\"index\\", \\"running\\": []}'
-#} %}
+{% set seed = {
+  'experiences': '{\\"_id\\": \\"library\\", \\"names\\": [\\"conversation\\"]}',
+  'experiences_ingress_running': '{\\"_id\\": \\"index\\", \\"running\\": []}',
+  'experiences_aggregate_running': '{\\"_id\\": \\"index\\", \\"running\\": []}'
+} %}#}
 
 include:
   - portsnap
@@ -95,42 +96,42 @@ couchdb3:
       - cmd: storage_bootstrap
       - port: databases/couchdb3
 
-#{% if grains['id'] == 'couchdb-a' %}
-#{% for database in schema %}
-#"curl -X PUT -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/{{ [database][0] }}' -d '' > '/root/created-{{ [database][0] }}-database'":
-#  cmd.run:
-#    - creates: /root/created-{{ [database][0] }}-database
-#    - hide_output: True
-#    - output_loglevel: quiet
-#    - require:
-#      - service: couchdb3
-#{% if schema[[database][0]] %}
-#"curl -X PUT -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/{{ [database][0] }}/_security' -d '{{ schema[[database][0]] }}' > '/root/created-{{ [database][0] }}-security'":
-#  cmd.run:
-#    - creates: /root/created-{{ [database][0] }}-security
-#    - hide_output: True
-#    - output_loglevel: quiet
-#    - require:
-#      - cmd: "curl -X PUT -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/{{ [database][0] }}' -d '' > '/root/created-{{ [database][0] }}-database'"
-#{% endif %}
-#{% endfor %}
+{# {% if grains['id'] == 'couchdb-a' %}
+{% for database in schema %}
+"curl -X PUT -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/{{ [database][0] }}' -d '' > '/root/created-{{ [database][0] }}-database'":
+  cmd.run:
+    - creates: /root/created-{{ [database][0] }}-database
+    - hide_output: True
+    - output_loglevel: quiet
+    - require:
+      - service: couchdb3
+{% if schema[[database][0]] %}
+"curl -X PUT -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/{{ [database][0] }}/_security' -d '{{ schema[[database][0]] }}' > '/root/created-{{ [database][0] }}-security'":
+  cmd.run:
+    - creates: /root/created-{{ [database][0] }}-security
+    - hide_output: True
+    - output_loglevel: quiet
+    - require:
+      - cmd: "curl -X PUT -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/{{ [database][0] }}' -d '' > '/root/created-{{ [database][0] }}-database'"
+{% endif %}
+{% endfor %}
 
-#"curl -X POST -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/experiences' -d '{{ seed['experiences'] }}' > '/root/seeded-experiences'":
-#  cmd.run:
-#    - creates: /root/seeded-experiences
-#    - hide_output: True
-#    - output_loglevel: quiet
+"curl -X POST -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/experiences' -d '{{ seed['experiences'] }}' > '/root/seeded-experiences'":
+  cmd.run:
+    - creates: /root/seeded-experiences
+    - hide_output: True
+    - output_loglevel: quiet
 
-#"curl -X POST -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/experiences_ingress_running' -d '{{ seed['experiences_ingress_running'] }}' > '/root/seeded-experiences_ingress_running'":
-#  cmd.run:
-#    - creates: /root/seeded-experiences_ingress_running
-#    - hide_output: True
-#    - output_loglevel: quiet
+"curl -X POST -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/experiences_ingress_running' -d '{{ seed['experiences_ingress_running'] }}' > '/root/seeded-experiences_ingress_running'":
+  cmd.run:
+    - creates: /root/seeded-experiences_ingress_running
+    - hide_output: True
+    - output_loglevel: quiet
 
-#"curl -X POST -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/experiences_aggregate_running' -d '{{ seed['experiences_aggregate_running'] }}' > '/root/seeded-experiences_aggregate_running'":
-#  cmd.run:
-#    - creates: /root/seeded-experiences_aggregate_running
-#    - hide_output: True
-#    - output_loglevel: quiet
-#{% endif %}
+"curl -X POST -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/experiences_aggregate_running' -d '{{ seed['experiences_aggregate_running'] }}' > '/root/seeded-experiences_aggregate_running'":
+  cmd.run:
+    - creates: /root/seeded-experiences_aggregate_running
+    - hide_output: True
+    - output_loglevel: quiet
+{% endif %} #}
 # terragon 2019-2020
