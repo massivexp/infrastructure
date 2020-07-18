@@ -62,7 +62,7 @@ couchdb3:
     - user: couchdb
     - group: couchdb
     - require:
-      - pkg: couchdb3
+      - port: databases/couchdb3
 
 /usr/local/etc/couchdb3/local.d/custom.ini:
   file.managed:
@@ -71,7 +71,7 @@ couchdb3:
     - user: couchdb
     - group: couchdb
     - require:
-      - pkg: couchdb3
+      - port: databases/couchdb3
       - file: /usr/local/etc/couchdb3/local.d
 
 /usr/local/etc/couchdb3/vm.args:
@@ -79,13 +79,13 @@ couchdb3:
     - source: salt:///files/couchdb/vm.jinja.args
     - template: jinja
     - require:
-      - pkg: couchdb3
+      - port: databases/couchdb3
 
 /usr/local/etc/rc.d/couchdb3:
   file.managed:
     - source: salt:///files/couchdb/rc.conf
     - require:
-      - pkg: couchdb3
+      - port: databases/couchdb3
       - file: /usr/local/etc/couchdb3/local.d/custom.ini
 
 /mnt/storage:
