@@ -214,3 +214,5 @@ logging.to_files: false
 # have the Elasticsearch output configured, you can simply uncomment the
 # following line.
 #xpack.monitoring.elasticsearch:
+
+migration.6_to_7.enabled: true
