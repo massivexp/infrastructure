@@ -1,5 +1,5 @@
 extend:
-  /usr/local/etc/filebeat.yml:
+  /usr/local/etc/beats/filebeat.yml:
     file.managed:
       - context:
         general_log_files:

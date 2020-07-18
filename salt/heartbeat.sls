@@ -1,5 +1,5 @@
 extend:
-  /usr/local/etc/filebeat.yml:
+  /usr/local/etc/beats/filebeat.yml:
     file.managed:
       - context:
         specific_log_files:
@@ -9,9 +9,9 @@ heartbeat:
   service.running:
     - enable: True
     - watch:
-      - file: /usr/local/etc/heartbeat.yml
+      - file: /usr/local/etc/beats/heartbeat.yml
 
-/usr/local/etc/heartbeat.yml:
+/usr/local/etc/beats/heartbeat.yml:
   file.managed:
     - source: salt:///files/heartbeat/heartbeat.jinja.yml
     - template: jinja

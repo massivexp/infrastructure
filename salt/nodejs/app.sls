@@ -1,7 +1,7 @@
 {% set package_version = "0.0.30" %}
 
 extend:
-  /usr/local/etc/filebeat.yml:
+  /usr/local/etc/beats/filebeat.yml:
     file.managed:
       - context:
         specific_log_files:

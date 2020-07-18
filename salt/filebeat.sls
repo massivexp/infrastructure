@@ -1,7 +1,7 @@
 beats7:
   pkg.installed
 
-/usr/local/etc/filebeat.yml:
+/usr/local/etc/beats/filebeat.yml:
   file.managed:
     - source: salt:///files/filebeat/filebeat.jinja.yml
     - template: jinja
@@ -20,4 +20,4 @@ filebeat:
   service.running:
     - enable: True
     - watch:
-      - file: /usr/local/etc/filebeat.yml
+      - file: /usr/local/etc/beats/filebeat.yml
