@@ -94,6 +94,7 @@ couchdb3:
     - group: couchdb
     - require:
       - cmd: storage_bootstrap
+      - port: databases/couchdb3
 
 #{% if grains['id'] == 'couchdb-a' %}
 #{% for database in schema %}
