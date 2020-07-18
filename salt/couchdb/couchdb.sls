@@ -37,7 +37,7 @@ portsnap extract:
 
 set_dbowner:
   cmd.run:
-    - name: 'chown couchdb /mnt/storage && echo "" > /root/setup-dbowner':
+    - name: "chown couchdb /mnt/storage && echo \"\" > /root/setup-dbowner":
     - creates: /root/setup-dbowner
     - require:
       - cmd: storage_bootstrap
