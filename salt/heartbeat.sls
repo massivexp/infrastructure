@@ -3,7 +3,7 @@ extend:
     file.managed:
       - context:
         specific_log_files:
-          - /var/db/beats/heartbeat/logs/heartbeat
+          - /var/log/beats/heartbeat
 
 heartbeat:
   service.running:
