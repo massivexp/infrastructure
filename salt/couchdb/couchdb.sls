@@ -17,7 +17,6 @@
 } %}
 
 include:
-  - java
   - portsnap
 
 #extend:
