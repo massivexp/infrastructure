@@ -32,10 +32,18 @@ couchdb3:
     - enable: True
     - require:
       - cmd: storage_bootstrap
+      - cmd: set_dbowner
     - watch:
       - file: /usr/local/etc/couchdb3/local.d/custom.ini
       - file: /usr/local/etc/couchdb3/vm.args
       - file: /usr/local/etc/rc.d/couchdb3
+
+set_dbowner:
+  cmd.run:
+    - name: 'chown couchdb /mnt/storage && echo "" > /root/setup-dbowner':
+    - creates: /root/setup-dbowner
+    - require:
+      - cmd: storage_bootstrap
 
 /usr/local/etc/couchdb3/local.d:
   file.directory:
