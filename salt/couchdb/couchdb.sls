@@ -1,20 +1,20 @@
-{% set schema = {
-  '_users': false,
-  '_global_changes': false,
-  '_replicator': false,
-  'experiences': false,
-  'organizations': false,
-  'experiences_ingress_running': false,
-  'experiences_aggregate_running': false,
-  'ingress_mkeen_comments_0': '{\\"admins\\": {\\"roles\\": [\\"mkeen_member\\"]}, \\"members\\": {\\"roles\\": [\\"mkeen_guest\\"]}}',
-  'aggregate_mkeen_comments_0': '{\\"admins\\": {\\"roles\\": [\\"admin\\"]}, \\"members\\": {\\"roles\\": [\\"mkeen_guest\\"]}}'
-} %}
+#{% set schema = {
+#  '_users': false,
+#  '_global_changes': false,
+#  '_replicator': false,
+#  'experiences': false,
+#  'organizations': false,
+#  'experiences_ingress_running': false,
+#  'experiences_aggregate_running': false,
+#  'ingress_mkeen_comments_0': '{\\"admins\\": {\\"roles\\": [\\"mkeen_member\\"]}, \\"members\\": {\\"roles\\": [\\"mkeen_guest\\"]}}',
+#  'aggregate_mkeen_comments_0': '{\\"admins\\": {\\"roles\\": [\\"admin\\"]}, \\"members\\": {\\"roles\\": [\\"mkeen_guest\\"]}}'
+#} %}
 
-{% set seed = {
-  'experiences': '{\\"_id\\": \\"library\\", \\"names\\": [\\"conversation\\"]}',
-  'experiences_ingress_running': '{\\"_id\\": \\"index\\", \\"running\\": []}',
-  'experiences_aggregate_running': '{\\"_id\\": \\"index\\", \\"running\\": []}'
-} %}
+#{% set seed = {
+#  'experiences': '{\\"_id\\": \\"library\\", \\"names\\": [\\"conversation\\"]}',
+#  'experiences_ingress_running': '{\\"_id\\": \\"index\\", \\"running\\": []}',
+#  'experiences_aggregate_running': '{\\"_id\\": \\"index\\", \\"running\\": []}'
+#} %}
 
 include:
   - portsnap
@@ -48,7 +48,6 @@ couchdb3:
     - require:
       - cmd: portsnap extract
   service.running:
-    - enable: True
     - watch:
       - file: /usr/local/etc/couchdb3/local.d/custom.ini
       - file: /usr/local/etc/couchdb3/vm.args
