@@ -198,7 +198,7 @@ processors:
 # "publish", "service".
 #logging.selectors: ["*"]
 logging.to_syslog: true
-logging.to_files: false
+logging.to_files: true
 
 #============================== Xpack Monitoring ===============================
 # filebeat can export internal metrics to a central Elasticsearch monitoring
