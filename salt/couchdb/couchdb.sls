@@ -17,9 +17,6 @@
   'experiences_aggregate_running': '{\\"_id\\": \\"index\\", \\"running\\": []}'
 } %}#}
 
-include:
-  - portsnap
-
 extend:
   /usr/local/etc/beats/filebeat.yml:
     file.managed:
@@ -30,12 +27,6 @@ extend:
     file.managed:
       - source: salt:///files/salt/mine.couchdb.jinja.conf #}
 
-portsnap extract:
-  cmd.run:
-    - creates: /usr/ports/databases/couchdb3
-    - require:
-      - cmd: portsnap_fetch
-
 set_dbowner:
   cmd.run:
     - name: "chown couchdb /mnt/storage && echo \"\" > /root/setup-dbowner"
@@ -44,10 +35,7 @@ set_dbowner:
       - cmd: storage_bootstrap
 
 couchdb3:
-  ports.installed:
-    - name: databases/couchdb3
-    - require:
-      - cmd: portsnap extract
+  pkg.installed: []
   service.running:
     - watch:
       - file: /usr/local/etc/couchdb3/local.d/custom.ini
@@ -62,7 +50,7 @@ couchdb3:
     - user: couchdb
     - group: couchdb
     - require:
-      - ports: databases/couchdb3
+      - pkg: couchdb3
 
 /usr/local/etc/couchdb3/local.d/custom.ini:
   file.managed:
@@ -71,7 +59,7 @@ couchdb3:
     - user: couchdb
     - group: couchdb
     - require:
-      - ports: databases/couchdb3
+      - pkg: couchdb3
       - file: /usr/local/etc/couchdb3/local.d
 
 /usr/local/etc/couchdb3/vm.args:
@@ -79,13 +67,13 @@ couchdb3:
     - source: salt:///files/couchdb/vm.jinja.args
     - template: jinja
     - require:
-      - ports: databases/couchdb3
+      - pkg: couchdb3
 
 /usr/local/etc/rc.d/couchdb3:
   file.managed:
     - source: salt:///files/couchdb/rc.conf
     - require:
-      - ports: databases/couchdb3
+      - pkg: couchdb3
       - file: /usr/local/etc/couchdb3/local.d/custom.ini
 
 /mnt/storage:
@@ -94,7 +82,7 @@ couchdb3:
     - group: couchdb
     - require:
       - cmd: storage_bootstrap
-      - ports: databases/couchdb3
+      - pkg: couchdb3
 
 {# {% if grains['id'] == 'couchdb-a' %}
 {% for database in schema %}
