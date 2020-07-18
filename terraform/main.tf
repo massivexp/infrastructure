@@ -1,5 +1,6 @@
 terraform {
   backend "remote" {
+    required_version = "0.12.25"
     hostname = "app.terraform.io"
     organization = "massivexp"
 
