@@ -24,8 +24,8 @@ extend:
   /usr/local/etc/beats/filebeat.yml:
     file.managed:
       - context:
-        specific_log_files:
-          - /var/log/couchdb3/couch.log
+          specific_log_files:
+            - /var/log/couchdb3/couch.log
 {#  /usr/local/etc/salt/minion.d/mine.conf:
     file.managed:
       - source: salt:///files/salt/mine.couchdb.jinja.conf #}
