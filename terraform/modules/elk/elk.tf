@@ -17,11 +17,17 @@ variable "heartbeat_size" {}
 variable "heartbeat_provisioned" {}
 variable "kibana_proxy_size" {}
 variable "tld" {}
+
 variable "heartbeat_access_droplet_ids" {
   default = []
 }
+
 variable "kibana_proxy_provisioned" {
   default = false
+}
+
+variable "random_nonce" {
+  default = 0
 }
 
 resource "random_integer" "elastic_user_length" {
