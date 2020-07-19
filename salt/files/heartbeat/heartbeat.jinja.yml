@@ -177,19 +177,19 @@ heartbeat.monitors:
     schedule: '@every 1s'
     id: haproxy
     name: HAProxy
+    check.response.status: 302
     hosts:
     {% for haproxy_node in haproxy_nodes %}  - "http://{{ haproxy_node[1] }}"
     {% endfor %}
-    check.response.status: 302
 
   - type: http
     schedule: '@every 1s'
     id: couchdb
     name: "CouchDB"
+    check.response.status: 200
     hosts:
     {% for couchdb_db_node in couchdb_db_nodes %}  - "http://{{ couchdb_db_node[1] }}:5984/"
     {% endfor %}
-    check.response.status: 200
 
 heartbeat.scheduler:
   limit: 10
