@@ -96,6 +96,7 @@ cluster.initial_master_nodes:
 
 # ml is not supported on FreeBSD
 xpack.ml.enabled: false
-xpack.security.enabled: true
 xpack.monitoring.enabled: true
 xpack.monitoring.collection.enabled: true
+xpack.security.audit.enabled: true
+xpack.security.enabled: true
