@@ -1,18 +1,16 @@
+extend:
+  /usr/local/etc/beats/filebeat.yml:
+    file.managed:
+      - context:
+        specific_log_files:
+          - /var/log/elasticsearch/kibana.log
+
 include:
   - java
-  - portsnap
-
-portsnap extract:
-  cmd.run:
-    - creates: /usr/ports/textproc/kibana7
-    - require:
-      - cmd: portsnap_fetch
 
 kibana:
-  ports.installed:
-    - name: textproc/kibana7
-    - require:
-      - cmd: portsnap extract
+  pkg.installed:
+    - name: kibana7
   service.running:
     - enable: True
     - watch:
@@ -22,3 +20,6 @@ kibana:
   file.managed:
     - source: salt:///files/kibana/kibana.jinja.yml
     - template: jinja
+    - require:
+      - pkg: kibana
+  

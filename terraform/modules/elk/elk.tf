@@ -24,6 +24,40 @@ variable "kibana_proxy_provisioned" {
   default = false
 }
 
+resource "random_integer" "elastic_user_length" {
+  min = 10
+  max = 20
+  keepers = {
+    listener_arn = "${var.random_nonce}"
+  }
+
+}
+
+resource "random_integer" "elastic_password_length" {
+  min = 20
+  max = 30
+  keepers = {
+    listener_arn = "${var.random_nonce}"
+  }
+
+}
+
+resource "random_password" "elastic_user" {
+  length = random_integer.elastic_user_length.result
+  special = false
+  upper = true
+  lower = true
+  number = true
+}
+
+resource "random_password" "elastic_pass" {
+  length = random_integer.elastic_password_length.result
+  special = true
+  upper = true
+  lower = true
+  number = true
+}
+
 module "Logstash" {
   source = "../salt-minion"
   node_count = var.logstash_workers
@@ -33,8 +67,12 @@ module "Logstash" {
   domain_id = var.tld
   keys = var.ssh_keys
   image = var.image
+
   geoip_license_key = var.geoip_license_key
   geoip_account_id = var.geoip_account_id
+
+  elastic_user = random_password.elastic_user.result
+  elastic_pass = random_password.elastic_pass.result
   
   salt_minion_roles = ["logstash", "elk", "minion"]
   salt_master_droplet_id = var.salt_master_droplet_id
@@ -44,7 +82,7 @@ module "Logstash" {
 }
 
 resource "digitalocean_firewall" "beats_to_logstash" {
-  name="Beats-To-Logstash"
+  name = "Beats-To-Logstash"
   droplet_ids = module.Logstash.droplet_ids
   count = module.Logstash.provision ? 1 : 0
 
@@ -61,7 +99,7 @@ resource "digitalocean_firewall" "beats_to_logstash" {
 }
 
 resource "digitalocean_firewall" "es_kibana_to_logstash" {
-  name="ES-Kibana-To-Logstash"
+  name = "ES-Kibana-To-Logstash"
   droplet_ids = module.Logstash.droplet_ids
   count = module.Logstash.provision ? 1 : 0
 
@@ -83,6 +121,9 @@ module "ElasticSearch" {
   domain_id = var.tld
   keys = var.ssh_keys
   image = var.image
+
+  elastic_user = random_password.elastic_user.result
+  elastic_pass = random_password.elastic_pass.result
   
   salt_minion_roles = ["elasticsearch", "elk", "minion"]
   salt_master_droplet_id = var.salt_master_droplet_id
@@ -92,7 +133,7 @@ module "ElasticSearch" {
 }
 
 resource "digitalocean_firewall" "logstash_to_elasticsearch" {
-  name="Beats-To-ElasticSearch"
+  name = "Beats-To-ElasticSearch"
   droplet_ids = module.ElasticSearch.droplet_ids
   count = module.ElasticSearch.provision ? 1 : 0
 
@@ -114,6 +155,9 @@ module "Heartbeat" {
   domain_id = var.tld
   keys = var.ssh_keys
   image = var.image
+
+  elastic_user = random_password.elastic_user.result
+  elastic_pass = random_password.elastic_pass.result
   
   salt_minion_roles = ["heartbeat", "elk", "minion"]
   salt_master_droplet_id = var.salt_master_droplet_id
@@ -123,7 +167,7 @@ module "Heartbeat" {
 }
 
 resource "digitalocean_firewall" "heartbeat_http_local" {
-  name="Heartbyte-To-Private-Http"
+  name = "Heartbyte-To-Private-Http"
   droplet_ids = var.heartbeat_access_droplet_ids
 
   inbound_rule {
@@ -143,6 +187,9 @@ module "Kibana" {
   domain_id = var.tld
   keys = var.ssh_keys
   image = var.image
+
+  elastic_user = random_password.elastic_user.result
+  elastic_pass = random_password.elastic_pass.result
   
   salt_minion_roles = ["kibana", "elk", "minion"]
   salt_master_droplet_id = var.salt_master_droplet_id
@@ -152,7 +199,7 @@ module "Kibana" {
 }
 
 resource "digitalocean_firewall" "kibana_and_es_to_logstash" {
-  name="Logstash-Monitoring"
+  name = "Logstash-Monitoring"
   droplet_ids = module.Logstash.droplet_ids
 
   inbound_rule {
@@ -164,7 +211,7 @@ resource "digitalocean_firewall" "kibana_and_es_to_logstash" {
 }
 
 resource "digitalocean_firewall" "kibana_to_elasticsearch" { # Rename to reflect this is all local to ES. Also, no. Should be all to logstash but not ES
-  name="Kibana-To-ElasticSearch"
+  name = "Kibana-To-ElasticSearch"
   droplet_ids = module.ElasticSearch.droplet_ids
   count = module.Kibana.provision ? 1 : 0
 
@@ -195,7 +242,7 @@ module "HAProxy" {
 }
 
 resource "digitalocean_firewall" "haproxy_to_kibana" {
-  name="HAProxy-To-Kibana"
+  name = "HAProxy-To-Kibana"
   droplet_ids = module.Kibana.droplet_ids
 
   inbound_rule {
@@ -207,7 +254,7 @@ resource "digitalocean_firewall" "haproxy_to_kibana" {
 }
 
 resource "digitalocean_firewall" "world_to_haproxy_kibana" {
-  name="World-To-HAProxyKibana"
+  name = "World-To-HAProxyKibana"
   droplet_ids = module.HAProxy.droplet_ids
 
   inbound_rule {

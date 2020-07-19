@@ -60,6 +60,7 @@ variable "cluster_makeup" {
       kibana_domain = "dashboard"
       logstash_size = "s-1vcpu-1gb"
       logstash_node_count = 1
+      elastic_disk_size = 30
       elastic_node_count = 1
     }
 

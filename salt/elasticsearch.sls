@@ -11,19 +11,10 @@ extend:
 
 include:
   - java
-  - portsnap
-
-portsnap extract:
-  cmd.run:
-    - creates: /usr/ports/textproc/elasticsearch7
-    - require:
-      - cmd: portsnap_fetch
 
 elasticsearch:
-  ports.installed:
-    - name: textproc/elasticsearch7
-    - require:
-      - cmd: portsnap extract
+  pkg.installed:
+    - name: elasticsearch7
   service.running:
     - enable: True
     - watch:
@@ -34,5 +25,5 @@ elasticsearch:
     - source: salt:///files/elasticsearch/elasticsearch.jinja.yml
     - template: jinja
     - require:
-      - ports: textproc/elasticsearch7
+      - pkg: elasticsearch
   

@@ -68,6 +68,14 @@ variable "app_npm_package" {
   default = ""
 }
 
+variable "elastic_user" {
+  default = ""
+}
+
+variable "elastic_pass" {
+  default = ""
+}
+
 resource "digitalocean_droplet" "salt_minion" {
   count = var.node_count
   private_networking = true
@@ -200,7 +208,7 @@ resource "null_resource" "configure_firewalled_minion" {
   }
 
   provisioner "file" {
-    content = "roles:\r\n${join("\r\n", [for role in var.salt_minion_roles : "  - ${role}"])}\r\nfqdn: ${length(var.custom_fqdn) > 0 ? var.custom_fqdn : "${var.name}-${var.alpha[count.index]}"}.${var.domain_id}\r\ncouch_user: ${var.couch_user}\r\ncouch_pass: ${var.couch_pass}\r\nstripe_api_key: ${var.stripe_api_key}\r\ngeoip_license_key: ${var.geoip_license_key}\r\ngeoip_account_id: ${var.geoip_account_id}\r\napp_npm_package: ${var.app_npm_package}"
+    content = "roles:\r\n${join("\r\n", [for role in var.salt_minion_roles : "  - ${role}"])}\r\nfqdn: ${length(var.custom_fqdn) > 0 ? var.custom_fqdn : "${var.name}-${var.alpha[count.index]}"}.${var.domain_id}\r\ncouch_user: ${var.couch_user}\r\ncouch_pass: ${var.couch_pass}\r\nstripe_api_key: ${var.stripe_api_key}\r\ngeoip_license_key: ${var.geoip_license_key}\r\ngeoip_account_id: ${var.geoip_account_id}\r\napp_npm_package: ${var.app_npm_package}\r\nelastic_user: ${var.elastic_user}\r\nelastic_pass: ${var.elastic_pass}"
     destination = "/usr/local/etc/salt/grains"
   }
 
