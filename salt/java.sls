@@ -1,3 +1,8 @@
+JAVA_HOME:
+  file.append:
+    - name: /etc/profile
+    - text: setenv JAVA_HOME /usr/local/openjdk8
+
 /etc/fstab:
   file.append:
     - text:
