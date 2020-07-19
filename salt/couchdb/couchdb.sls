@@ -21,7 +21,7 @@ extend:
   filebeat:
     service.running:
       - require:
-        - pkg: couchdb3
+        - file: /var/log/couchdb3
   /usr/local/etc/beats/filebeat.yml:
     file.managed:
       - context:
@@ -87,6 +87,13 @@ couchdb3:
     - group: couchdb
     - require:
       - cmd: storage_bootstrap
+      - pkg: couchdb3
+
+/var/log/couchdb3:
+  file.directory:
+    - user: couchdb
+    - group: couchdb
+    - require:
       - pkg: couchdb3
 
 {# {% if grains['id'] == 'couchdb-a' %}
