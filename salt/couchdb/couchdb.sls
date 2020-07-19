@@ -37,6 +37,7 @@ set_dbowner:
 couchdb3:
   pkg.installed: []
   service.running:
+    - enable: True
     - watch:
       - file: /usr/local/etc/couchdb3/local.d/custom.ini
       - file: /usr/local/etc/couchdb3/vm.args
