@@ -37,6 +37,7 @@ set_dbowner:
     - creates: /root/setup-dbowner
     - require:
       - cmd: storage_bootstrap
+      - pkg: couchdb3
 
 couchdb3:
   pkg.installed: []
