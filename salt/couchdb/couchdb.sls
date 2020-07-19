@@ -49,6 +49,8 @@ couchdb3:
     - require:
       - cmd: storage_bootstrap
       - cmd: set_dbowner
+      - file: /var/log/couchdb3
+      - file: /var/run/couchdb
 
 /usr/local/etc/couchdb3/local.d:
   file.directory:
@@ -90,6 +92,13 @@ couchdb3:
       - pkg: couchdb3
 
 /var/log/couchdb3:
+  file.directory:
+    - user: couchdb
+    - group: couchdb
+    - require:
+      - pkg: couchdb3
+
+/var/run/couchdb:
   file.directory:
     - user: couchdb
     - group: couchdb
