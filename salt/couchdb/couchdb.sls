@@ -18,6 +18,10 @@
 } %}#}
 
 extend:
+  filebeat:
+    service.running:
+      - require:
+        - pkg: couchdb3
   /usr/local/etc/beats/filebeat.yml:
     file.managed:
       - context:
