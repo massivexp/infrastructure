@@ -12,6 +12,14 @@ extend:
 include:
   - java
 
+make_admin:
+  cmd.run:
+    - name: /usr/local/lib/elasticsearch/bin/elasticsearch-users useradd {{ grains['elastic_user'] }} -p {{ grains['elastic_pass'] }} -r superuser
+    - env:
+      - JAVA_HOME: /usr/local/openjdk8
+    - require:
+      - pkg: elasticsearch
+
 elasticsearch:
   pkg.installed:
     - name: elasticsearch7
@@ -19,6 +27,8 @@ elasticsearch:
     - enable: True
     - watch:
       - file: /usr/local/etc/elasticsearch/elasticsearch.yml
+    - require:
+      - cmd: make_admin
 
 /usr/local/etc/elasticsearch/elasticsearch.yml:
   file.managed:
