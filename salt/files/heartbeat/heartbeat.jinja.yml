@@ -185,7 +185,7 @@ heartbeat.monitors:
 
   - type: http
     schedule: '@every 1s'
-    id: "haproxy"
+    id: apache
     name: "Apache"
     urls:
     {% for apache_node in apache_nodes %}
@@ -195,7 +195,7 @@ heartbeat.monitors:
 
   - type: http
     schedule: '@every 1s'
-    id: "haproxy"
+    id: couchdb
     name: "CouchDB"
     urls:
     {% for couchdb_db_node in couchdb_db_nodes %}
