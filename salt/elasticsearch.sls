@@ -37,7 +37,7 @@ touch /usr/local/lib/elasticsearch/config/users:
 
 make_admin:
   cmd.run:
-    - name: /usr/local/lib/elasticsearch/bin/elasticsearch-users useradd "{{ grains['elastic_user'] }}" -p "{{ grains['elastic_pass'] }}" -r superuser
+    - name: /usr/local/lib/elasticsearch/bin/elasticsearch-users useradd "{{ grains['elastic_user'] }}" -p "{{ grains['elastic_pass'] }}" -r superuser || true
     - check_cmd:
       - /bin/true
     - env:
