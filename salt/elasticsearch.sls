@@ -14,7 +14,8 @@ include:
 
 make_admin:
   cmd.run:
-    - name: /usr/local/lib/elasticsearch/bin/elasticsearch-users useradd {{ grains['elastic_user'] }} -p {{ grains['elastic_pass'] }} -r superuser
+    - name: /usr/local/lib/elasticsearch/bin/elasticsearch-users useradd {{ grains['elastic_user'] }} -p {{ grains['elastic_pass'] }} -r superuser && touch /root/setup-elastic-user
+    - creates: /root/setup-elastic-user
     - env:
       - JAVA_HOME: /usr/local/openjdk8
     - require:
@@ -37,3 +38,7 @@ elasticsearch:
     - require:
       - pkg: elasticsearch
   
+/usr/local/lib/elasticsearch/config/users:
+  file.exists:
+    - require:
+      - pkg: elasticsearch
