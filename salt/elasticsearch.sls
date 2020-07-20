@@ -12,15 +12,6 @@ extend:
 include:
   - java
 
-make_admin:
-  cmd.run:
-    - name: /usr/local/lib/elasticsearch/bin/elasticsearch-users useradd "{{ grains['elastic_user'] }}" -p "{{ grains['elastic_pass'] }}" -r superuser > /dev/null && touch /root/setup-elastic-user
-    - creates: /root/setup-elastic-user
-    - env:
-      - JAVA_HOME: /usr/local/openjdk8
-    - require:
-      - cmd: touch /usr/local/lib/elasticsearch/config/users
-
 elasticsearch:
   pkg.installed:
     - name: elasticsearch7
@@ -29,7 +20,7 @@ elasticsearch:
     - watch:
       - file: /usr/local/etc/elasticsearch/elasticsearch.yml
     - require:
-      - cmd: make_admin
+      - cmd: finalize_make_admin
 
 /usr/local/etc/elasticsearch/elasticsearch.yml:
   file.managed:
@@ -43,3 +34,20 @@ touch /usr/local/lib/elasticsearch/config/users:
     - creates: /usr/local/lib/elasticsearch/config/users
     - require:
       - pkg: elasticsearch
+
+make_admin:
+  cmd.run:
+    - name: /usr/local/lib/elasticsearch/bin/elasticsearch-users useradd "{{ grains['elastic_user'] }}" -p "{{ grains['elastic_pass'] }}" -r superuser
+    - check_cmd:
+      - /bin/true
+    - env:
+      - JAVA_HOME: /usr/local/openjdk8
+    - require:
+      - cmd: touch /usr/local/lib/elasticsearch/config/users
+
+finalize_make_admin:
+  cmd.run:
+    - name: touch /root/setup-elastic-user
+    - creates: /root/setup-elastic-user
+    - require:
+      - cmd: make_admin
