@@ -14,7 +14,7 @@ include:
 
 make_admin:
   cmd.run:
-    - name: /usr/local/lib/elasticsearch/bin/elasticsearch-users useradd {{ grains['elastic_user'] }} -p {{ grains['elastic_pass'] }} -r superuser && touch /root/setup-elastic-user
+    - name: /usr/local/lib/elasticsearch/bin/elasticsearch-users useradd "{{ grains['elastic_user'] }}" -p "{{ grains['elastic_pass'] }}" -r superuser && touch /root/setup-elastic-user
     - creates: /root/setup-elastic-user
     - env:
       - JAVA_HOME: /usr/local/openjdk8
