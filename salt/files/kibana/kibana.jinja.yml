@@ -28,7 +28,7 @@ elasticsearch.username: "{{ grains['elastic_user'] }}"
 elasticsearch.password: "{{ grains['elastic_pass'] }}"
 
 elasticsearch.hosts: {% for address in salt['mine.get']('roles:elasticsearch', 'private_ip', tgt_type='grain').items() %}
-  - https://{{ address[1] }}:9200{% endfor %}
+  - http://{{ address[1] }}:9200{% endfor %}
 
 # When this setting's value is true Kibana uses the hostname specified in the server.host
 # setting. When the value of this setting is false, Kibana uses the hostname of the host
