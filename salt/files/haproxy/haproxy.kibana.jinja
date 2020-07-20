@@ -9,10 +9,6 @@ defaults
     timeout client 120000ms
     timeout server 120000ms
 
-userlist basic-auth-list
-  group is-admin
-  user admin password $1$v/Y4knCM$trZGNNj3E8tjzRGym5VpN/ groups is-admin
-
 listen stats
    bind {{ salt['network.interface_ip']('vtnet1') }}:14567
    stats enable
