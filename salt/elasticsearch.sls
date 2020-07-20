@@ -19,7 +19,7 @@ make_admin:
     - env:
       - JAVA_HOME: /usr/local/openjdk8
     - require:
-      - pkg: elasticsearch
+      - cmd: touch /usr/local/lib/elasticsearch/config/users
 
 elasticsearch:
   pkg.installed:
@@ -38,7 +38,8 @@ elasticsearch:
     - require:
       - pkg: elasticsearch
   
-/usr/local/lib/elasticsearch/config/users:
-  file.exists:
+touch /usr/local/lib/elasticsearch/config/users:
+  cmd.run:
+    - creates: /usr/local/lib/elasticsearch/config/users
     - require:
       - pkg: elasticsearch
