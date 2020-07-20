@@ -117,3 +117,4 @@ elasticsearch.hosts: {% for address in salt['mine.get']('roles:elasticsearch', '
 
 xpack.reporting.enabled: false
 xpack.monitoring.enabled: true
+xpack.security.encryptionKey: "weiofjweoifjewoifjoJOIJOIJOIJFeoijfeoijfewoifjweoifjoifj39ejfjer9fjeroijierfjieriuf32ru23489ru348r"
