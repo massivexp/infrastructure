@@ -7,10 +7,6 @@ extend:
       - context:
           other_log_files:
             - /var/log/letsencrypt/letsencrypt.log
-  haproxy:
-    service.running:
-      - watch:
-        - file: /usr/local/etc/letsencrypt/live/{{grains['fqdn']}}/{{grains['fqdn']}}.pem
 
 certbot-2.7 certonly --non-interactive --standalone -d {{grains['fqdn']}} --agree-tos -m freebsd@{{grains['fqdn']}}:
   cmd.run:
