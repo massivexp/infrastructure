@@ -15,6 +15,7 @@ beats7:
         - /var/log/userlog
       general_log_files: []
       specific_log_files: []
+      other_log_files: []
 
 filebeat:
   service.running:
