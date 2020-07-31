@@ -20,7 +20,7 @@ cat /usr/local/etc/letsencrypt/live/{{grains['fqdn']}}/privkey.pem /usr/local/et
     - require:
       - pkg: py27-certbot
 
-certbot-2.7 renew --http-01-port=8888 --standalone -q && cat /usr/local/etc/letsencrypt/live/{{grains['fqdn']}}/privkey.pem /usr/local/etc/letsencrypt/live/{{grains['fqdn']}}/cert.pem | tee /usr/local/etc/letsencrypt/live/{{grains['fqdn']}}/{{grains['fqdn']}}.pem:
+certbot-2.7 renew --http-01-port=8888 --standalone -q && cat /usr/local/etc/letsencrypt/live/{{grains['fqdn']}}/privkey.pem /usr/local/etc/letsencrypt/live/{{grains['fqdn']}}/cert.pem | tee /usr/local/etc/letsencrypt/live/{{grains['fqdn']}}/{{grains['fqdn']}}.pem && service haproxy reload:
   cron.present:
     - user: root
     - special: '@daily'
