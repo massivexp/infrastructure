@@ -44,23 +44,14 @@ couchdb3:
   service.running:
     - enable: True
     - watch:
-      - file: /usr/local/etc/couchdb3/local.d/custom.ini
-      - file: /usr/local/etc/couchdb3/vm.args
-      - file: /usr/local/etc/rc.d/couchdb3
+      - file: /usr/local/etc/couchdb3/local.ini
     - require:
       - cmd: storage_bootstrap
       - cmd: set_dbowner
       - file: /var/log/couchdb3
       - file: /var/run/couchdb
 
-/usr/local/etc/couchdb3/local.d:
-  file.directory:
-    - user: couchdb
-    - group: couchdb
-    - require:
-      - pkg: couchdb3
-
-/usr/local/etc/couchdb3/local.d/custom.ini:
+/usr/local/etc/couchdb3/local.ini:
   file.managed:
     - source: salt:///files/couchdb/local.jinja.ini
     - template: jinja
@@ -68,21 +59,6 @@ couchdb3:
     - group: couchdb
     - require:
       - pkg: couchdb3
-      - file: /usr/local/etc/couchdb3/local.d
-
-/usr/local/etc/couchdb3/vm.args:
-  file.managed:
-    - source: salt:///files/couchdb/vm.jinja.args
-    - template: jinja
-    - require:
-      - pkg: couchdb3
-
-/usr/local/etc/rc.d/couchdb3:
-  file.managed:
-    - source: salt:///files/couchdb/rc.conf
-    - require:
-      - pkg: couchdb3
-      - file: /usr/local/etc/couchdb3/local.d/custom.ini
 
 /mnt/storage:
   file.directory:
