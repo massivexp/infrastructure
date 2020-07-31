@@ -17,7 +17,12 @@ frontend http-in
     bind *:80
     bind *:443 ssl crt /usr/local/etc/letsencrypt/live/{{ grains['fqdn'] }}/{{ grains['fqdn'] }}.pem alpn h2,http/1.1
     redirect scheme https if !{ ssl_fc }
+    acl letsencrypt-acl path_beg /.well-known/acme-challenge/
+    use_backend letsencrypt-backend if letsencrypt-acl
     default_backend servers
+
+backend letsencrypt-backend
+    server letsencrypt 127.0.0.1:8888
 
 backend servers
 

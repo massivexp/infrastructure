@@ -23,6 +23,8 @@ frontend http-in
     bind *:80
     bind *:443 ssl crt /usr/local/etc/letsencrypt/live/{{ grains['fqdn'] }}/{{ grains['fqdn'] }}.pem alpn h2,http/1.1
     redirect scheme https if !{ ssl_fc }
+    acl letsencrypt-acl path_beg /.well-known/acme-challenge/
+    use_backend letsencrypt-backend if letsencrypt-acl
     default_backend servers
     http-request deny if { path -i -m beg /_utils }
     http-request deny if { path -i -m beg /_active_tasks }
@@ -37,6 +39,9 @@ frontend http-in
     http-request deny if { path -i -m beg /_up }
     http-request deny if { path -i -m beg /_uuids }
     http-request deny if { path -i -m beg /favicon }
+
+backend letsencrypt-backend
+    server letsencrypt 127.0.0.1:8888
 
 backend servers
     {% for address in salt['mine.get']('G@roles:couchdb and not G@roles:haproxy', 'private_ip', tgt_type='compound').items() | sort(attribute=0) %}server {{ address[0] }} {{ address[1] }}:5984 maxconn 500 check on-marked-down shutdown-sessions
