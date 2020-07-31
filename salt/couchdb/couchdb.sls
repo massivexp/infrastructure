@@ -1,4 +1,3 @@
-{#
 {% set schema = {
   '_users': false,
   '_global_changes': false,
@@ -15,7 +14,7 @@
   'experiences': '{\\"_id\\": \\"library\\", \\"names\\": [\\"conversation\\"]}',
   'experiences_ingress_running': '{\\"_id\\": \\"index\\", \\"running\\": []}',
   'experiences_aggregate_running': '{\\"_id\\": \\"index\\", \\"running\\": []}'
-} %}#}
+} %}
 
 extend:
   filebeat:
@@ -27,9 +26,9 @@ extend:
       - context:
           specific_log_files:
             - /var/log/couchdb3/couch.log
-{#  /usr/local/etc/salt/minion.d/mine.conf:
+  /usr/local/etc/salt/minion.d/mine.conf:
     file.managed:
-      - source: salt:///files/salt/mine.couchdb.jinja.conf #}
+      - source: salt:///files/salt/mine.couchdb.jinja.conf
 
 set_dbowner:
   cmd.run:
@@ -82,7 +81,7 @@ couchdb3:
     - require:
       - pkg: couchdb3
 
-{# {% if grains['id'] == 'couchdb-a' %}
+{% if grains['id'] == 'couchdb-a' %}
 {% for database in schema %}
 "curl -X PUT -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/{{ [database][0] }}' -d '' > '/root/created-{{ [database][0] }}-database'":
   cmd.run:
@@ -119,5 +118,5 @@ couchdb3:
     - creates: /root/seeded-experiences_aggregate_running
     - hide_output: True
     - output_loglevel: quiet
-{% endif %} #}
+{% endif %}
 # terragon 2019-2020
