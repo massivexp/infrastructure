@@ -195,7 +195,7 @@ heartbeat.scheduler:
   limit: 10
 
 output.elasticsearch:
-  username: "beats_system"
+  username: "mwk"
   password: "Acldsrqb1!"
   hosts: [{% for address in salt['mine.get']('roles:elasticsearch', 'private_ip', tgt_type='grain').items() %}"{{ address[1] }}:9200"{{ "," if not loop.last else "" }}{% endfor %}]
 
