@@ -57,12 +57,12 @@ metricbeat.max_start_delay: 10s
 metricbeat.modules:
 
 #-------------------------------- System Module --------------------------------
-- module: system
-  metricsets:
+#- module: system
+#  metricsets:
     #- cpu             # CPU usage
     #- load            # CPU load averages
     #- memory          # Memory usage
-    - network         # Network IO
+    #- network         # Network IO
     #- process         # Per process metrics
     #- process_summary # Process summary
     #- uptime          # System Uptime
@@ -73,13 +73,13 @@ metricbeat.modules:
     #- fsstat         # File system summary metrics
     #- raid           # Raid
     #- socket         # Sockets and connection info (linux only)
-  enabled: true
-  period: 10s
-  processes: ['.*']
+#  enabled: true
+#  period: 10s
+#  processes: ['.*']
 
   # Configure the metric types that are included by these metricsets.
-  cpu.metrics:  ["percentages"]  # The other available options are normalized_percentages and ticks.
-  core.metrics: ["percentages"]  # The other available option is ticks.
+  #cpu.metrics:  ["percentages"]  # The other available options are normalized_percentages and ticks.
+  #core.metrics: ["percentages"]  # The other available option is ticks.
 
   # A list of filesystem types to ignore. The filesystem metricset will not
   # collect data from filesystems matching any of the specified types, and
@@ -132,6 +132,10 @@ metricbeat.modules:
 
 output.elasticsearch:
   hosts: [{% for address in salt['mine.get']('roles:elasticsearch', 'private_ip', tgt_type='grain').items() %}"{{ address[1] }}:9200"{{ "," if not loop.last else "" }}{% endfor %}]
+  username: "mwk" 
+  password: "Acldsrqb1!"
 
 setup.kibana:
   host: "{% for address in salt['mine.get']('G@roles:kibana and not G@roles:haproxy', 'private_ip', tgt_type='compound').items() %}http://{{ address[1] }}:5601{% endfor %}"
+  username: "mwk" 
+  password: "Acldsrqb1!"
