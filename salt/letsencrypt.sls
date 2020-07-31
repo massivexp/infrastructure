@@ -2,10 +2,6 @@ py27-certbot:
   pkg.installed
 
 extend:
-  filebeat:
-    service.running:
-      - require:
-        - file: /var/log/letsencrypt/letsencrypt.log
   /usr/local/etc/beats/filebeat.yml:
     file.managed:
       - context:
