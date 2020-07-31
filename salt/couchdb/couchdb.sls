@@ -1,7 +1,4 @@
 {% set schema = {
-  '_users': false,
-  '_global_changes': false,
-  '_replicator': false,
   'experiences': false,
   'organizations': false,
   'experiences_ingress_running': false,
@@ -90,15 +87,6 @@ couchdb3:
     - output_loglevel: quiet
     - require:
       - service: couchdb3
-{% if schema[[database][0]] %}
-"curl -X PUT -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/{{ [database][0] }}/_security' -d '{{ schema[[database][0]] }}' > '/root/created-{{ [database][0] }}-security'":
-  cmd.run:
-    - creates: /root/created-{{ [database][0] }}-security
-    - hide_output: True
-    - output_loglevel: quiet
-    - require:
-      - cmd: "curl -X PUT -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/{{ [database][0] }}' -d '' > '/root/created-{{ [database][0] }}-database'"
-{% endif %}
 {% endfor %}
 
 "curl -X POST -H \"Content-Type: application/json\" 'http://{{ grains['couch_user'] }}:{{ grains['couch_pass'] }}@{{ salt['network.interface_ip']('vtnet1') }}:5984/experiences' -d '{{ seed['experiences'] }}' > '/root/seeded-experiences'":
