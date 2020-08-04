@@ -1,4 +1,4 @@
-{% set cert_domains = 'root' in grains['roles'] ? [grains['fqdn'], 'massivexp.com'] : [grains['fqdn']] %}
+{% set cert_domains = [grains['fqdn'], 'massivexp.com'] if 'root' in grains['roles'] else [grains['fqdn']] %}
 
 py27-certbot:
   pkg.installed
