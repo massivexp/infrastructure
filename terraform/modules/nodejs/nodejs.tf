@@ -59,7 +59,7 @@ module "HAProxy" {
   keys = var.ssh_keys
   image = var.image
 
-  salt_minion_roles = ["haproxy", "pm2", "minion"]
+  salt_minion_roles = var.root_domain ? ["haproxy", "pm2", "minion", "root"] : ["haproxy", "pm2", "minion"]
   salt_master_droplet_id = var.salt_master_droplet_id
   salt_master_private_ip_address = var.salt_master_private_ip_address
   salt_master_public_ip_address = var.salt_master_public_ip_address
