@@ -10,6 +10,8 @@ extend:
   install_package_from_npm:
     npm.installed:
       - name: "@massivexp/api@{{ package_version }}"
+      - require:
+          - file: /usr/local/lib/node_modules/npm/npmrc
   /usr/local/etc/process.yml:
     file.managed:
       - context:
