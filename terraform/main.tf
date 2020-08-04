@@ -256,6 +256,7 @@ module "App" {
   name = "www"
   app_npm_package = "@massivexp/massivexp"
   http_interface = true
+  root_domain = true
 
   api_size = var.cluster_makeup.api.api_size
   proxy_size = var.cluster_makeup.api.proxy_size

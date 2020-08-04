@@ -15,6 +15,9 @@ variable "api_size" {}
 variable "tld" {}
 variable "name" {}
 variable "app_npm_package" {}
+variable "root_domain" {
+  default = false
+}
 
 variable "stripe_api_key" {
   default = ""
@@ -69,6 +72,14 @@ resource "digitalocean_record" "nodejsapi_frontend" {
   domain = var.tld
   type = "A"
   name = var.name
+  value = module.HAProxy.salt_minion_public_ip_addresses[0]
+}
+
+resource "digitalocean_record" "root_domain" {
+  count = var.root_domain && var.http_interface ? 1 : 0
+  domain = var.tld
+  type = "A"
+  name = "@"
   value = module.HAProxy.salt_minion_public_ip_addresses[0]
 }
 
