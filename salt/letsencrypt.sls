@@ -1,3 +1,5 @@
+{% set cert_domains = 'root' in grains['roles'] ? [grains['fqdn'], 'massivexp.com'] : [grains['fqdn']] %}
+
 py27-certbot:
   pkg.installed
 
@@ -8,19 +10,21 @@ extend:
           other_log_files:
             - /var/log/letsencrypt/letsencrypt.log
 
-certbot-2.7 certonly --non-interactive --standalone -d {{grains['fqdn']}} --agree-tos -m freebsd@{{grains['fqdn']}}:
+{% for cert_domain in cert_domains %}
+certbot-2.7 certonly --non-interactive --standalone -d {{cert_domain}} --agree-tos -m freebsd@{{cert_domain}}:
   cmd.run:
-    - creates: /usr/local/etc/letsencrypt/live/{{grains['fqdn']}}/privkey.pem
+    - creates: /usr/local/etc/letsencrypt/live/{{cert_domain}}/privkey.pem
     - require:
       - pkg: py27-certbot
 
-cat /usr/local/etc/letsencrypt/live/{{grains['fqdn']}}/privkey.pem /usr/local/etc/letsencrypt/live/{{grains['fqdn']}}/cert.pem | tee /usr/local/etc/letsencrypt/live/{{grains['fqdn']}}/{{grains['fqdn']}}.pem:
+cat /usr/local/etc/letsencrypt/live/{{cert_domain}}/privkey.pem /usr/local/etc/letsencrypt/live/{{cert_domain}}/cert.pem | tee /usr/local/etc/letsencrypt/live/{{cert_domain}}/{{cert_domain}}.pem:
   cmd.run:
-    - creates: /usr/local/etc/letsencrypt/live/{{grains['fqdn']}}/{{grains['fqdn']}}.pem
+    - creates: /usr/local/etc/letsencrypt/live/{{cert_domain}}/{{cert_domain}}.pem
     - require:
       - pkg: py27-certbot
 
-certbot-2.7 renew --http-01-port=8888 --standalone -q && cat /usr/local/etc/letsencrypt/live/{{grains['fqdn']}}/privkey.pem /usr/local/etc/letsencrypt/live/{{grains['fqdn']}}/cert.pem | tee /usr/local/etc/letsencrypt/live/{{grains['fqdn']}}/{{grains['fqdn']}}.pem && service haproxy reload:
+certbot-2.7 renew --http-01-port=8888 --standalone -q && cat /usr/local/etc/letsencrypt/live/{{cert_domain}}/privkey.pem /usr/local/etc/letsencrypt/live/{{cert_domain}}/cert.pem | tee /usr/local/etc/letsencrypt/live/{{cert_domain}}/{{cert_domain}}.pem && service haproxy reload:
   cron.present:
     - user: root
     - special: '@daily'
+{% endfor %}
