@@ -12,7 +12,7 @@ defaults
     timeout server 50000ms
 
 listen stats
-   bind {{ salt['network.interface_ip']('vtnet1') }}:14567
+   bind 127.0.0.1:14567
    stats enable
    stats uri /stats
 
