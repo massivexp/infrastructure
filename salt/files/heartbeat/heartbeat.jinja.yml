@@ -171,7 +171,7 @@ xpack.monitoring.enabled: true
 {% set haproxy_nodes = salt['mine.get']('roles:haproxy', 'public_ip', 'grain').items() %}
 {% set apache_nodes = salt['mine.get']('roles:apache', 'public_ip', 'grain').items() %}
 {% set couchdb_db_nodes = salt['mine.get']('couchdb-*', 'private_ip').items() %}
-{% set pm2_nodes = salt['mine.get']('nodejs-www-* or nodejs-api-*', 'private_ip', 'compoind').items() %}
+{% set pm2_nodes = salt['mine.get']('nodejs-www-* or nodejs-api-*', 'private_ip', 'compound').items() %}
 
 heartbeat.monitors:
   - type: http
