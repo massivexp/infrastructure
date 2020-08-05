@@ -60,7 +60,7 @@ metricbeat.modules:
 - module: haproxy
   metricsets: ["info", "stat"]
   period: 10s
-  hosts: ["tcp://{{ salt['network.interface_ip']('vtnet1') }}:14567"]
+  hosts: ["tcp://127.0.0.1:14567"]
   enabled: true
 
   # A list of filesystem types to ignore. The filesystem metricset will not
