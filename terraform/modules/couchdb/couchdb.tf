@@ -133,7 +133,7 @@ resource "digitalocean_firewall" "couchdb_to_couchdb" {
   inbound_rule {
     protocol = "tcp"
     port_range = "5984"
-    source_addresses = var.heartbeat_private_ip_address
+    source_addresses = var.heartbeat_private_ip_addresses
   }
 
   inbound_rule {
