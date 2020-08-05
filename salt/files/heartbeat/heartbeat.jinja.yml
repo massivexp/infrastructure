@@ -171,6 +171,7 @@ xpack.monitoring.enabled: true
 {% set haproxy_nodes = salt['mine.get']('roles:haproxy', 'public_ip', 'grain').items() %}
 {% set apache_nodes = salt['mine.get']('roles:apache', 'public_ip', 'grain').items() %}
 {% set couchdb_db_nodes = salt['mine.get']('couchdb-*', 'private_ip').items() %}
+{% set pm2_nodes = salt['mine.get']('nodejs-www-* and nodejs-api-*', 'private_ip', 'compoind').items() %}
 
 heartbeat.monitors:
   - type: http
@@ -189,6 +190,15 @@ heartbeat.monitors:
     check.response.status: 200
     hosts:
     {% for couchdb_db_node in couchdb_db_nodes %}  - "http://{{ couchdb_db_node[1] }}:5984/"
+    {% endfor %}
+
+  - type: http
+    schedule: '@every 1s'
+    id: expressjs
+    name: "ExpressJS"
+    check.response.status: 200
+    hosts:
+    {% for pm2_node in pm2_nodes %}  - "http://{{ pm2_node[1] }}:3000/"
     {% endfor %}
 
 heartbeat.scheduler:

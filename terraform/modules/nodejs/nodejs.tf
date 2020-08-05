@@ -17,6 +17,10 @@ variable "name" {}
 variable "app_npm_package" {}
 variable "github_token" {}
 
+variable "heartbeat_private_ip_address" {
+  default = ""
+}
+
 variable "root_domain" {
   default = false
 }
@@ -97,6 +101,21 @@ resource "digitalocean_firewall" "nodejsapihaproxy_to_nodejsapi" {
   }
 
 }
+
+resource "digitalocean_firewall" "heartbeat_to_nodejsapi" {
+  name="JS-${var.name}-Heartbeat-NodeJSApi"
+  count = heartbeat_private_ip_address != '' ? 1 : 0
+  droplet_ids = module.PM2Node.droplet_ids
+
+  inbound_rule {
+    protocol = "tcp"
+    port_range = "3000"
+    source_addresses = [var.heartbeat_private_ip_address]
+  }
+
+}
+
+
 
 resource "digitalocean_firewall" "world_to_nodejsapi_haproxy" {
   name="World-To-JS-${var.name}-HAProxy"

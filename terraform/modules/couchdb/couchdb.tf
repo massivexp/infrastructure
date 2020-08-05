@@ -15,6 +15,7 @@ variable "image" {}
 variable "haproxy_domain" {}
 variable "tld" {}
 variable "disk_size" {}
+variable "heartbeat_private_ip_address" {}
 
 resource "random_integer" "couch_admin_user_length" {
   min = 10
@@ -127,6 +128,12 @@ resource "digitalocean_firewall" "couchdb_to_couchdb" {
     protocol = "tcp"
     port_range = "5984"
     source_addresses = module.CouchDBNode.salt_minion_private_ip_addresses
+  }
+
+  inbound_rule {
+    protocol = "tcp"
+    port_range = "5984"
+    source_addresses = [var.heartbeat_private_ip_address]
   }
 
   inbound_rule {
