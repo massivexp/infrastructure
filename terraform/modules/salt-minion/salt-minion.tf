@@ -40,14 +40,6 @@ variable "size" {
   default = "512mb"
 }
 
-variable "couch_user" {
-  default = ""
-}
-
-variable "couch_pass" {
-  default = ""
-}
-
 variable "stripe_api_key" {
   default = ""
 }
@@ -57,6 +49,14 @@ variable "disk_size" {
 }
 
 // Secrets
+variable "couch_user" {
+  default = ""
+}
+
+variable "couch_pass" {
+  default = ""
+}
+
 variable "geoip_license_key" {
   default = ""
 }

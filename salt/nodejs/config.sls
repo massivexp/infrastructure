@@ -5,4 +5,4 @@
     - require:
       - pkg: npm
     - defaults:
-      github_token: {{grains['github_token']}}
+      github_token: {{ grains['github_token'] }}

@@ -39,6 +39,7 @@ module "PM2Node" {
   keys = var.ssh_keys
   image = var.image
   size = var.api_size
+  github_token = var.github_token
 
   salt_minion_roles = ["pm2", "minion"]
   salt_master_droplet_id = var.salt_master_droplet_id
@@ -61,8 +62,6 @@ module "HAProxy" {
   keys = var.ssh_keys
   image = var.image
 
-  github_token = var.github_token
-  
   salt_minion_roles = var.root_domain ? ["haproxy", "pm2", "minion", "root"] : ["haproxy", "pm2", "minion"]
   salt_master_droplet_id = var.salt_master_droplet_id
   salt_master_private_ip_address = var.salt_master_private_ip_address
