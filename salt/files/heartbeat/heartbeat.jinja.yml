@@ -196,7 +196,7 @@ heartbeat.monitors:
     schedule: '@every 1s'
     id: expressjs
     name: "ExpressJS"
-    check.response.status: 200
+    check.response.status: 404
     hosts:
     {% for pm2_node in pm2_nodes %}  - "http://{{ pm2_node[1] }}:3000/"
     {% endfor %}
