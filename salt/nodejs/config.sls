@@ -4,3 +4,5 @@
     - template: jinja
     - require:
       - pkg: npm
+    - defaults:
+      github_token: {{grains['github_token']}}

@@ -15,6 +15,7 @@ variable "digitalocean_api_token" {}
 variable "terraform_cloud_api_token" {}
 variable "geoip_license_key" {}
 variable "geoip_account_id" {}
+variable "github_token" {}
 
 variable "mwk_key_fingerprint" {
   type = string
@@ -196,6 +197,7 @@ module "API" {
 
   name = "api"
   app_npm_package = "@massivexp/api"
+  github_token = var.github_token
   http_interface = true
 
   api_size = var.cluster_makeup.api.api_size
@@ -226,6 +228,7 @@ module "Pipeline-Reactions" {
 
   name = "pipeline"
   app_npm_package = "@massivexp/pipeline"
+  github_token = var.github_token
   http_interface = false
 
   api_size = var.cluster_makeup.api.api_size
@@ -255,6 +258,7 @@ module "App" {
 
   name = "www"
   app_npm_package = "@massivexp/massivexp"
+  github_token = var.github_token
   http_interface = true
   root_domain = true
 

@@ -15,6 +15,8 @@ variable "api_size" {}
 variable "tld" {}
 variable "name" {}
 variable "app_npm_package" {}
+variable "github_token" {}
+
 variable "root_domain" {
   default = false
 }
@@ -59,6 +61,8 @@ module "HAProxy" {
   keys = var.ssh_keys
   image = var.image
 
+  github_token = var.github_token
+  
   salt_minion_roles = var.root_domain ? ["haproxy", "pm2", "minion", "root"] : ["haproxy", "pm2", "minion"]
   salt_master_droplet_id = var.salt_master_droplet_id
   salt_master_private_ip_address = var.salt_master_private_ip_address
