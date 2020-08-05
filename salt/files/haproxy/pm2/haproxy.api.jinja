@@ -22,6 +22,9 @@ frontend http-in
     redirect scheme https if !{ ssl_fc }
     acl letsencrypt-acl path_beg /.well-known/acme-challenge/
     use_backend letsencrypt-backend if letsencrypt-acl
+    http-response set-header Access-Control-Allow-Origin "https://www.massivexp.com"
+    http-response set-header Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type"
+    http-response set-header Access-Control-Allow-Methods "GET, DELETE, OPTIONS, POST, PUT"
     default_backend servers
 
 backend letsencrypt-backend
