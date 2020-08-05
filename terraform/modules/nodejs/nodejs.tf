@@ -104,7 +104,7 @@ resource "digitalocean_firewall" "nodejsapihaproxy_to_nodejsapi" {
 
 resource "digitalocean_firewall" "heartbeat_to_nodejsapi" {
   name="JS-${var.name}-Heartbeat-NodeJSApi"
-  count = heartbeat_private_ip_address != '' ? 1 : 0
+  count = var.heartbeat_private_ip_address != '' ? 1 : 0
   droplet_ids = module.PM2Node.droplet_ids
 
   inbound_rule {
