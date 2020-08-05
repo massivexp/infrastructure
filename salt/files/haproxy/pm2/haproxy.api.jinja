@@ -24,7 +24,7 @@ frontend http-in
     use_backend letsencrypt-backend if letsencrypt-acl
     http-response set-header Access-Control-Allow-Origin "https://www.massivexp.com"
     http-response set-header Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type"
-    http-response set-header Access-Control-Allow-Methods "GET, DELETE, OPTIONS, POST, PUT"
+    http-response set-header Access-Control-Allow-Methods "*"
     default_backend servers
 
 backend letsencrypt-backend
