@@ -11,19 +11,9 @@ metricbeat:
 {% if has_lp_running %}
   service.running:
     - enable: True
-    - requires:
-        - cmd: "metricbeat --path.config /usr/local/etc modules enable haproxy > /root/metricbeat-haproxy-enabled"
     - watch:
         - file: /usr/local/etc/beats/metricbeat.yml
 {% else %}
   service.dead:
     - enable: False
-{% endif %}
-
-{% if has_lp_running %}
-"metricbeat --path.config /usr/local/etc modules enable haproxy > /root/metricbeat-haproxy-enabled":
-  cmd.run:
-    - creates: "/root/metricbeat-haproxy-enabled"
-    - requires:
-        - pkg: beats7
 {% endif %}
