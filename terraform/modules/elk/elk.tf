@@ -285,6 +285,6 @@ resource "digitalocean_record" "kibana_frontend" {
   value = module.HAProxy.salt_minion_public_ip_addresses[0]
 }
 
-output "heartbeat_private_ip_address" {
+output "heartbeat_private_ip_addresses" {
   value = module.Heartbeat.salt_minion_private_ip_addresses
 }

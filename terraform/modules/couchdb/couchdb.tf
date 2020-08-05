@@ -15,7 +15,7 @@ variable "image" {}
 variable "haproxy_domain" {}
 variable "tld" {}
 variable "disk_size" {}
-variable "heartbeat_private_ip_address" {}
+variable "heartbeat_private_ip_addresses" {}
 
 resource "random_integer" "couch_admin_user_length" {
   min = 10
@@ -133,7 +133,7 @@ resource "digitalocean_firewall" "couchdb_to_couchdb" {
   inbound_rule {
     protocol = "tcp"
     port_range = "5984"
-    source_addresses = [var.heartbeat_private_ip_address]
+    source_addresses = var.heartbeat_private_ip_address
   }
 
   inbound_rule {

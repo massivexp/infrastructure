@@ -17,7 +17,7 @@ variable "name" {}
 variable "app_npm_package" {}
 variable "github_token" {}
 
-variable "heartbeat_private_ip_address" {
+variable "heartbeat_private_ip_addresses" {
   default = ""
 }
 
@@ -104,13 +104,13 @@ resource "digitalocean_firewall" "nodejsapihaproxy_to_nodejsapi" {
 
 resource "digitalocean_firewall" "heartbeat_to_nodejsapi" {
   name="JS-${var.name}-Heartbeat-NodeJSApi"
-  count = var.heartbeat_private_ip_address != "" ? 1 : 0
+  count = var.heartbeat_private_ip_addresses != "" ? 1 : 0
   droplet_ids = module.PM2Node.droplet_ids
 
   inbound_rule {
     protocol = "tcp"
     port_range = "3000"
-    source_addresses = [var.heartbeat_private_ip_address]
+    source_addresses = var.heartbeat_private_ip_addresses
   }
 
 }
