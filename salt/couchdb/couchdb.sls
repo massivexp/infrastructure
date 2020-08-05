@@ -14,9 +14,6 @@
   'experiences_aggregate_running': '{\\"_id\\": \\"index\\", \\"running\\": []}'
 } %}
 
-include:
-  - metricbeat.couchdb
-
 extend:
   filebeat:
     service.running:

@@ -1,4 +1,5 @@
 include:
+  - metricbeat
   - metricbeat.haproxy
 
 haproxy:
