@@ -21,7 +21,7 @@ metricbeat:
       - enable: True
       - require:
           - file: /usr/local/etc/beats/metricbeat.yml
-          - mount: /compat/linux/proc
-          - mount: /proc
+          - mount: /dev/null
+          - mount: proc
       - watch:
           - file: /usr/local/etc/beats/metricbeat.yml
