@@ -1,3 +1,7 @@
+#sudo mount -t procfs proc /proc
+#sudo mkdir -p /compat/linux/proc
+#sudo mount -t linprocfs /dev/null /compat/linux/proc
+
 /proc:
   mount.mounted:
     - device: proc
@@ -10,6 +14,10 @@
     - device: /dev/null
     - persist: True
     - mkmnt: True
+
+/bin/lsof:
+  file.symlink:
+    - target: /usr/local/sbin/lsof
 
 /usr/local/etc/beats/metricbeat.yml:
   file.managed:
