@@ -11,7 +11,7 @@
 
 /usr/local/etc/beats/metricbeat.yml:
   file.managed:
-    - source: salt:///files/metricbeat/haproxy.jinja.yml
+    - source: salt:///files/metricbeat/metricbeat.jinja.yml
     - template: jinja
     - require:
       - pkg: beats7
