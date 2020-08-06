@@ -1,7 +1,3 @@
-sudo mount -t procfs proc /proc
-sudo mkdir -p /compat/linux/proc
-sudo mount -t linprocfs /dev/null /compat/linux/proc
-
 /proc:
   mount.mounted:
     - device: proc
