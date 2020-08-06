@@ -1,12 +1,12 @@
-/proc:
+proc:
   mount.mounted:
-    - device: proc
+    - device: /proc
     - fstype: procfs
 
-/compat/linux/proc:
+/dev/null:
   mount.mounted:
     - fstype: linprocfs
-    - device: /dev/null
+    - device: /compat/linux/proc
     - mkmnt: True
 
 /usr/local/etc/beats/metricbeat.yml:
