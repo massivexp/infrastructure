@@ -4,6 +4,7 @@ base:
     - eastern_standard_time
     - security
     - fastboot
+    - metricbeat.metricbeat
 
   'saltm':
     - master
