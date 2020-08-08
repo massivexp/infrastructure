@@ -2,7 +2,7 @@ extend:
   /etc/fstab:
     file.append:
       - text:
-        - linprocfs   /compat/linux/proc  linprocfs       rw      0       0
+        - linproc /usr/compat/linux/proc linprocfs rw 0 0
 
 /bin/lsof:
   file.symlink:
