@@ -38,6 +38,9 @@ base:
   'kibana-*':
     - kibana
 
+  'apm':
+    - apm.apm
+
   'haproxy-kibana-*':
     - haproxy.kibana
 
