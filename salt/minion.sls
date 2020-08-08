@@ -14,3 +14,8 @@ salt_minion:
   file.managed:
     - source: salt:///files/salt/98-minion-config.jinja.conf
     - template: jinja
+
+/etc/fstab:
+    file.append:
+      - text:
+        - "# Stub comment"

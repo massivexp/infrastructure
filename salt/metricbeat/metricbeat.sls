@@ -1,19 +1,8 @@
-#sudo mount -t procfs proc /proc
-#sudo mkdir -p /compat/linux/proc
-#sudo mount -t linprocfs /dev/null /compat/linux/proc
-
-/proc:
-  mount.mounted:
-    - device: proc
-    - fstype: procfs
-    - persist: True
-
-/compat/linux/proc:
-  mount.mounted:
-    - fstype: linprocfs
-    - device: /dev/null
-    - persist: True
-    - mkmnt: True
+extend:
+  /etc/fstab:
+    file.append:
+      - text:
+        - /dev/null /compat/linux/proc linprocfs rw   0  0
 
 /bin/lsof:
   file.symlink:
