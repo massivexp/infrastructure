@@ -12,8 +12,6 @@ include:
 logstash:
   pkg.installed:
     - name: logstash7
-    - require:
-      - cmd: mount -a > /root/initial-java-mount
   service.running:
     - enable: True
     - watch:
