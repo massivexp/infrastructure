@@ -5,7 +5,6 @@
     - opts: rw
     - dump: 0
     - pass_num: 0
-    - persist: True
 
 /bin/lsof:
   file.symlink:

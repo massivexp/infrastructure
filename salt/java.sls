@@ -5,7 +5,6 @@
     - opts: rw
     - dump: 0
     - pass_num: 0
-    - persist: True
 
 /proc:
   mount.mounted:
@@ -14,4 +13,3 @@
     - opts: rw
     - dump: 0
     - pass_num: 0
-    - persist: True
