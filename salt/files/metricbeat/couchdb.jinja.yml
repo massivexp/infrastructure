@@ -53,15 +53,17 @@ metricbeat.max_start_delay: 10s
 
 #timeseries.enabled: false
 
+xpack.monitoring.enabled: true
+
 #==========================  Modules configuration =============================
 metricbeat.modules:
-- module: couchdb
-  metricsets: ["server"]
-  period: 10s
-  hosts: ["{{ salt['network.interface_ip']('vtnet1') }}:5984"]
-  username: "{{ grains['couch_user'] }}"
-  password: "{{ grains['couch_pass'] }}"
-  basepath: /_node/_local/_stats
+  - module: couchdb
+    metricsets: ["server"]
+    period: 10s
+    hosts: ["{{ salt['network.interface_ip']('vtnet1') }}:5984"]
+    username: "{{ grains['couch_user'] }}"
+    password: "{{ grains['couch_pass'] }}"
+    basepath: /_node/_local/_stats
 
 output.elasticsearch:
   hosts: [{% for address in salt['mine.get']('roles:elasticsearch', 'private_ip', tgt_type='grain').items() %}"{{ address[1] }}:9200"{{ "," if not loop.last else "" }}{% endfor %}]

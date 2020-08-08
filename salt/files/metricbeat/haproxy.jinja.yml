@@ -57,11 +57,11 @@ metricbeat.max_start_delay: 10s
 
 #-------------------------------- System Module --------------------------------
 metricbeat.modules:
-- module: haproxy
-  metricsets: ["info", "stat"]
-  period: 10s
-  hosts: ["tcp://127.0.0.1:14567"]
-  enabled: true
+  - module: haproxy
+    metricsets: ["info", "stat"]
+    period: 10s
+    hosts: ["tcp://127.0.0.1:14567"]
+    enabled: true
 
   # A list of filesystem types to ignore. The filesystem metricset will not
   # collect data from filesystems matching any of the specified types, and
@@ -111,6 +111,8 @@ metricbeat.modules:
   #socket.reverse_lookup.failure_ttl: 60s
 
   # Diskio configurations
+
+xpack.monitoring.enabled: true
 
 output.elasticsearch:
   hosts: [{% for address in salt['mine.get']('roles:elasticsearch', 'private_ip', tgt_type='grain').items() %}"{{ address[1] }}:9200"{{ "," if not loop.last else "" }}{% endfor %}]
