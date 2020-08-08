@@ -11,7 +11,6 @@ beats7:
       log_files:
         - /var/log/auth.log
         - /var/log/salt/minion
-        - /var/log/fail2ban.log
         - /var/log/userlog
       general_log_files: []
       specific_log_files: []

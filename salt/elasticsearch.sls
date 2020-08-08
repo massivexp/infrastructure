@@ -3,11 +3,8 @@ extend:
     file.managed:
       - context:
         specific_log_files:
-          - /var/log/elasticsearch/elasticsearch.log
-          - /var/log/elasticsearch/elasticsearch_access.log
-          - /var/log/elasticsearch/elasticsearch_audit.log
-          - /var/log/elasticsearch/elasticsearch_index_search_slowlog.log
-          - /var/log/elasticsearch/elasticsearch_index_indexing_slowlog.log
+          - /var/log/elasticsearch/massivexp-logging.log
+          - /var/log/elasticsearch/massivexp-logging_index_search_slowlog.log
 
 include:
   - java
