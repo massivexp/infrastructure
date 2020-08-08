@@ -197,7 +197,7 @@ processors:
 # To enable all selectors use ["*"]. Examples of other selectors are "beat",
 # "publish", "service".
 #logging.selectors: ["*"]
-logging.to_syslog: true
+logging.to_syslog: false
 logging.to_files: true
 
 #============================== Xpack Monitoring ===============================
@@ -206,7 +206,10 @@ logging.to_files: true
 # reporting is disabled by default.
 
 # Set to true to enable the monitoring reporter.
-#xpack.monitoring.enabled: false
+xpack.monitoring.enabled: true
+xpack.monitoring.elasticsearch.username: mwk
+xpack.monitoring.elasticsearch.password: Acldsrqb1!
+xpack.monitoring.elasticsearch.hosts: [{% for address in salt['mine.get']('roles:elasticsearch', 'private_ip', tgt_type='grain').items() %}"http://{{ address[1] }}:9200"{{ "," if not loop.last else "" }}{% endfor %}]
 
 # Uncomment to send the metrics to Elasticsearch. Most settings from the
 # Elasticsearch output are accepted here as well. Any setting that is not set is
