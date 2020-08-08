@@ -7,12 +7,6 @@
     - pass_num: 0
     - persist: True
 
-mount -a > /root/initial-java-mount:
-  cmd.run:
-    - creates: /root/initial-metricbeat-mount
-    - require:
-      - file: /etc/fstab
-
 /bin/lsof:
   file.symlink:
     - target: /usr/local/sbin/lsof
