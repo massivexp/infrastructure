@@ -63,6 +63,8 @@ variable "cluster_makeup" {
       logstash_node_count = 1
       elastic_disk_size = 30
       elastic_node_count = 1
+      apm_size = "s-1vcpu-1gb"
+      apm_domain = "apm"
     }
 
     couchdb = {
@@ -138,6 +140,8 @@ module "ELK" {
   elasticsearch_size = var.cluster_makeup.logging.elastic_size
   heartbeat_size = var.cluster_makeup.logging.heartbeat_size
   heartbeat_provisioned = var.cluster_makeup.logging.heartbeat_provisioned
+  apm_size = var.cluster_makeup.logging.apm_size
+  apm_domain = var.cluster_makeup.logging.apm_domain
   #heartbeat_access_droplet_ids = module.CouchDB.droplet_ids
 
   geoip_license_key = var.geoip_license_key
