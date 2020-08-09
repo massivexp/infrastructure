@@ -1,4 +1,4 @@
-{% set package_version = "0.0.45" %}
+{% set package_version = "0.0.46" %}
 
 extend:
   /usr/local/etc/beats/filebeat.yml:
