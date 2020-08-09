@@ -36,3 +36,9 @@ compile_apm:
     - template: jinja
     - require:
       - cmd: compile_apm
+
+./apm-server -c apm-server.yml -e -d \*:
+  cmd.run:
+    - cwd: /usr/local/go/src/github.com/elastic/apm-server
+    - require:
+        - cmd: compile_apm
