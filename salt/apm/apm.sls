@@ -17,9 +17,9 @@ https://github.com/massivexp/apm-server.git:
       - pkg: git
       - pkg: go
 
-/usr/local/bin/python3:
+/usr/local/bin/python3.7:
   file.symlink:
-    - target: /usr/local/bin/python3.7
+    - target: /usr/local/bin/python3
 
 compile_apm:
   cmd.run:
