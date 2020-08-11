@@ -61,7 +61,7 @@
 #
 # Where to fetch the pipeline configuration for the main pipeline
 #
-path.config: /usr/local/etc/logstash/
+path.config: /usr/local/etc/logstash/logstash.conf
 #
 # Pipeline configuration string for the main pipeline
 #
