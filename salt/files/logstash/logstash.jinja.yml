@@ -216,7 +216,7 @@ http.port: 9700
 #
 # X-Pack Monitoring
 # https://www.elastic.co/guide/en/logstash/current/monitoring-logstash.html
-#xpack.monitoring.enabled: true
+xpack.monitoring.enabled: true
 #xpack.monitoring.elasticsearch.username: mwk
 #xpack.monitoring.elasticsearch.password: Acldsrqb1!
 #xpack.monitoring.elasticsearch.hosts: [{% for address in salt['mine.get']('roles:elasticsearch', 'private_ip', tgt_type='grain').items() %}"http://{{ address[1] }}:9200"{{ "," if not loop.last else "" }}{% endfor %}]
