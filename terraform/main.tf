@@ -59,7 +59,7 @@ variable "cluster_makeup" {
       kibana_size = "s-2vcpu-2gb"
       kibana_proxy_provisioned = true
       kibana_domain = "dashboard"
-      logstash_size = "s-2vcpu-4gb"
+      logstash_size = "s-1vcpu-1gb"
       logstash_node_count = 1
       elastic_disk_size = 30
       elastic_node_count = 1
