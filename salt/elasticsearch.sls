@@ -16,12 +16,20 @@ elasticsearch:
     - enable: True
     - watch:
       - file: /usr/local/etc/elasticsearch/elasticsearch.yml
+      - file: /usr/local/etc/elasticsearch/jvm.options
     - require:
       - cmd: finalize_make_admin
 
 /usr/local/etc/elasticsearch/elasticsearch.yml:
   file.managed:
     - source: salt:///files/elasticsearch/elasticsearch.jinja.yml
+    - template: jinja
+    - require:
+      - pkg: elasticsearch
+
+/usr/local/etc/elasticsearch/jvm.options:
+  file.managed:
+    - source: salt:///files/elasticsearch/jvm.jinja.options
     - template: jinja
     - require:
       - pkg: elasticsearch
@@ -40,6 +48,7 @@ make_admin:
       - JAVA_HOME: /usr/local/openjdk8
     - require:
       - cmd: touch /usr/local/lib/elasticsearch/config/users
+      - service: elasticsearch
 
 finalize_make_admin:
   cmd.run:
