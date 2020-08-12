@@ -2,7 +2,7 @@ extend:
   /usr/local/etc/beats/filebeat.yml:
     file.managed:
       - context:
-        general_log_files:
+        specific_log_files:
           - /var/log/fail2ban.log
 
 fail2ban:
