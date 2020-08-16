@@ -17,13 +17,17 @@ certbot-2.7 certonly --non-interactive --standalone -d {{cert_domain}} --agree-t
     - require:
       - pkg: py27-certbot
 
-cat /usr/local/etc/letsencrypt/live/{{cert_domain}}/privkey.pem /usr/local/etc/letsencrypt/live/{{cert_domain}}/cert.pem | tee /usr/local/etc/letsencrypt/live/{{cert_domain}}/{{cert_domain}}.pem:
+cat /usr/local/etc/letsencrypt/live/{{cert_domain}}/privkey.pem /usr/local/etc/letsencrypt/live/{{cert_domain}}/cert.pem /usr/local/etc/letsencrypt/live/{{cert_domain}}/fullchain.pem | tee /usr/local/etc/letsencrypt/live/{{cert_domain}}/{{cert_domain}}.pem:
   cmd.run:
     - creates: /usr/local/etc/letsencrypt/live/{{cert_domain}}/{{cert_domain}}.pem
     - require:
       - pkg: py27-certbot
 
 certbot-2.7 renew --http-01-port=8888 --standalone -q && cat /usr/local/etc/letsencrypt/live/{{cert_domain}}/privkey.pem /usr/local/etc/letsencrypt/live/{{cert_domain}}/cert.pem | tee /usr/local/etc/letsencrypt/live/{{cert_domain}}/{{cert_domain}}.pem && service haproxy reload:
+  cron.absent:
+    - user: root
+
+certbot-2.7 renew --http-01-port=8888 --standalone -q && cat /usr/local/etc/letsencrypt/live/{{cert_domain}}/privkey.pem /usr/local/etc/letsencrypt/live/{{cert_domain}}/cert.pem /usr/local/etc/letsencrypt/live/{{cert_domain}}/fullchain.pem  | tee /usr/local/etc/letsencrypt/live/{{cert_domain}}/{{cert_domain}}.pem && service haproxy reload:
   cron.present:
     - user: root
     - special: '@daily'
