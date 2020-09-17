@@ -205,8 +205,8 @@ heartbeat.scheduler:
   limit: 10
 
 output.elasticsearch:
-  username: "mwk"
-  password: "Acldsrqb1!"
+  username: "{{ grains['elastic_user'] }}"
+  password: "{{ grains['elastic_pass'] }}"
   hosts: [{% for address in salt['mine.get']('roles:elasticsearch', 'private_ip', tgt_type='grain').items() %}"{{ address[1] }}:9200"{{ "," if not loop.last else "" }}{% endfor %}]
 
 migration.6_to_7.enabled: true

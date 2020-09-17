@@ -510,8 +510,8 @@ output.elasticsearch:
   # Scheme and port can be left out and will be set to the default (`http` and `9200`).
   # In case you specify and additional path, the scheme is required: `http://localhost:9200/path`.
   # IPv6 addresses should always be defined as: `https://[2001:db8::1]:9200`.
-  username: "mwk"
-  password: "Acldsrqb1!"
+  username: "{{ grains['elastic_user'] }}"
+  password: "{{ grains['elastic_pass'] }}"
   hosts: [{% for address in salt['mine.get']('roles:elasticsearch', 'private_ip', tgt_type='grain').items() %}"{{ address[1] }}:9200"{{ "," if not loop.last else "" }}{% endfor %}]
 
   # Boolean flag to enable or disable the output module.

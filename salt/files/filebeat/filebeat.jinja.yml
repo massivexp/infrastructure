@@ -207,8 +207,8 @@ logging.to_files: true
 
 # Set to true to enable the monitoring reporter.
 xpack.monitoring.enabled: true
-xpack.monitoring.elasticsearch.username: mwk
-xpack.monitoring.elasticsearch.password: Acldsrqb1!
+xpack.monitoring.elasticsearch.username: "{{ grains['elastic_user'] }}"
+xpack.monitoring.elasticsearch.password: "{{ grains['elastic_pass'] }}"
 xpack.monitoring.elasticsearch.hosts: [{% for address in salt['mine.get']('roles:elasticsearch', 'private_ip', tgt_type='grain').items() %}"http://{{ address[1] }}:9200"{{ "," if not loop.last else "" }}{% endfor %}]
 
 # Uncomment to send the metrics to Elasticsearch. Most settings from the
