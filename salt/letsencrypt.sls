@@ -31,9 +31,11 @@ certbot-2.7 renew --http-01-port=8888 --standalone -q && cat /usr/local/etc/lets
   cron.absent:
     - user: root
     - special: '@daily'
+    
+  certbot-2.7 renew --non-interactive --post-hook "cat /usr/local/etc/letsencrypt/live/{{cert_domain}}/fullchain.pem /usr/local/etc/letsencrypt/live/{{cert_domain}}/privkey.pem | tee /usr/local/etc/letsencrypt/live/{{cert_domain}}/{{cert_domain}}.pem && service haproxy reload":
+      cron.present:
+        - user: root
+        - special: '@daily'
+      
 {% endfor %}
 
-certbot-2.7 renew --non-interactive --post-hook "cat /usr/local/etc/letsencrypt/live/{{cert_domain}}/fullchain.pem /usr/local/etc/letsencrypt/live/{{cert_domain}}/privkey.pem | tee /usr/local/etc/letsencrypt/live/{{cert_domain}}/{{cert_domain}}.pem && service haproxy reload":
-cron.present:
-  - user: root
-  - special: '@daily'
