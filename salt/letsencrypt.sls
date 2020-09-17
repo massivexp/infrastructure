@@ -22,15 +22,6 @@ cat /usr/local/etc/letsencrypt/live/{{cert_domain}}/fullchain.pem /usr/local/etc
     - creates: /usr/local/etc/letsencrypt/live/{{cert_domain}}/{{cert_domain}}.pem
     - require:
       - pkg: py27-certbot
-
-certbot-2.7 renew --http-01-port=8888 --standalone -q && cat /usr/local/etc/letsencrypt/live/{{cert_domain}}/privkey.pem /usr/local/etc/letsencrypt/live/{{cert_domain}}/cert.pem | tee /usr/local/etc/letsencrypt/live/{{cert_domain}}/{{cert_domain}}.pem && service haproxy reload:
-  cron.absent:
-    - user: root
-
-certbot-2.7 renew --http-01-port=8888 --standalone -q && cat /usr/local/etc/letsencrypt/live/{{cert_domain}}/privkey.pem /usr/local/etc/letsencrypt/live/{{cert_domain}}/cert.pem /usr/local/etc/letsencrypt/live/{{cert_domain}}/fullchain.pem  | tee /usr/local/etc/letsencrypt/live/{{cert_domain}}/{{cert_domain}}.pem && service haproxy reload:
-  cron.absent:
-    - user: root
-    - special: '@daily'
     
 certbot-2.7 renew --non-interactive --post-hook "cat /usr/local/etc/letsencrypt/live/{{cert_domain}}/fullchain.pem /usr/local/etc/letsencrypt/live/{{cert_domain}}/privkey.pem | tee /usr/local/etc/letsencrypt/live/{{cert_domain}}/{{cert_domain}}.pem && service haproxy reload":
   cron.present:
