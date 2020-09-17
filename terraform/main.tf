@@ -209,7 +209,7 @@ module "API" {
   app_npm_package = "@massivexp/api"
   github_token = var.github_token
   http_interface = true
-  jwt = true
+  #jwt = true
 
   api_size = var.cluster_makeup.api.api_size
   proxy_size = var.cluster_makeup.api.proxy_size
