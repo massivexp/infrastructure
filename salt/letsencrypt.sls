@@ -29,4 +29,3 @@ certbot-2.7 renew --non-interactive --post-hook "cat /usr/local/etc/letsencrypt/
     - special: '@daily'
     
 {% endfor %}
-

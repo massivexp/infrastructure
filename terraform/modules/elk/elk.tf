@@ -19,6 +19,7 @@ variable "kibana_proxy_size" {}
 variable "tld" {}
 variable "apm_size" {}
 variable "apm_domain" {}
+variable "elastic_disk" {}
 
 variable "heartbeat_access_droplet_ids" {
   default = []
@@ -129,6 +130,7 @@ module "ElasticSearch" {
   domain_id = var.tld
   keys = var.ssh_keys
   image = var.image
+  disk_size = var.elastic_disk
 
   elastic_user = random_password.elastic_user.result
   elastic_pass = random_password.elastic_pass.result
