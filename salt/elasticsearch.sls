@@ -42,7 +42,7 @@ touch /usr/local/lib/elasticsearch/config/users:
 
 make_admin:
   cmd.run:
-    - name: /usr/local/lib/elasticsearch/bin/elasticsearch-users useradd "{{ grains['elastic_user'] }}" -p "{{ grains['elastic_pass'] }}" -r superuser || true > /root/.created-elastic-admin
+    - name: /usr/local/lib/elasticsearch/bin/elasticsearch-users useradd '{{ grains['elastic_user'] }}' -p '{{ grains['elastic_pass'] }}' -r superuser || true > /root/.created-elastic-admin
     - creates: /root/.created-elastic-admin
     - env:
       - JAVA_HOME: /usr/local/openjdk8
