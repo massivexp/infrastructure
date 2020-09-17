@@ -56,10 +56,12 @@ finalize_make_admin:
     - creates: /root/setup-elastic-user
     - require:
       - cmd: make_admin
-      
+
+{% if 'storage' in grains['roles'] %}
 /mnt/storage:
   file.directory:
     - user: elasticsearch
     - group: elasticsearch
     - require:
       - cmd: storage_bootstrap
+{% endif %}
