@@ -32,7 +32,7 @@ node.master: true
 # Path to directory where to store the data (separate multiple locations by comma):
 #
 #path.data: /path/to/data
-path.data: /var/db/elasticsearch
+path.data: /mnt/storage
 #
 # Path to log files:
 #
