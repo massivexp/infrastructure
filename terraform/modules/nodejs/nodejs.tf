@@ -16,6 +16,9 @@ variable "tld" {}
 variable "name" {}
 variable "app_npm_package" {}
 variable "github_token" {}
+variable "jwt" {
+  default = false
+}
 
 variable "heartbeat_private_ip_addresses" {
   default = ""
@@ -31,6 +34,14 @@ variable "stripe_api_key" {
 
 variable "http_interface" {
   default = false
+}
+
+resource "random_password" "jwt" {
+  length = 64
+  special = false
+  upper = false
+  lower = true
+  number = true
 }
 
 module "PM2Node" {
@@ -53,6 +64,7 @@ module "PM2Node" {
   couch_user = var.couchdb_user
   couch_pass = var.couchdb_pass
   stripe_api_key = var.stripe_api_key
+  jwt_key = var.jwt ? random_password.jwt.result : ""
 }
 
 module "HAProxy" {
@@ -115,8 +127,6 @@ resource "digitalocean_firewall" "heartbeat_to_nodejsapi" {
 
 }
 
-
-
 resource "digitalocean_firewall" "world_to_nodejsapi_haproxy" {
   name="World-To-JS-${var.name}-HAProxy"
   droplet_ids = module.HAProxy.droplet_ids
@@ -153,4 +163,8 @@ output "pm2_node_private_ip_addresses" {
 
 output "haproxy_private_ip_addresses" {
   value = module.HAProxy.salt_minion_private_ip_addresses
+}
+
+output "jwt" {
+  value = module.PM2Node.jwt
 }

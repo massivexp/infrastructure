@@ -81,6 +81,10 @@ variable "github_token" {
   default = ""
 }
 
+variable "jwt_key" {
+  default = ""
+}
+
 resource "digitalocean_droplet" "salt_minion" {
   count = var.node_count
   private_networking = true
@@ -213,7 +217,7 @@ resource "null_resource" "configure_firewalled_minion" {
   }
 
   provisioner "file" {
-    content = "roles:\r\n${join("\r\n", [for role in var.salt_minion_roles : "  - ${role}"])}\r\nfqdn: ${length(var.custom_fqdn) > 0 ? var.custom_fqdn : "${var.name}-${var.alpha[count.index]}"}.${var.domain_id}\r\ncouch_user: ${var.couch_user}\r\ncouch_pass: ${var.couch_pass}\r\nstripe_api_key: ${var.stripe_api_key}\r\ngeoip_license_key: ${var.geoip_license_key}\r\ngeoip_account_id: ${var.geoip_account_id}\r\napp_npm_package: ${var.app_npm_package}\r\nelastic_user: ${var.elastic_user}\r\nelastic_pass: ${var.elastic_pass}\r\ngithub_token: ${var.github_token}"
+    content = "roles:\r\n${join("\r\n", [for role in var.salt_minion_roles : "  - ${role}"])}\r\nfqdn: ${length(var.custom_fqdn) > 0 ? var.custom_fqdn : "${var.name}-${var.alpha[count.index]}"}.${var.domain_id}\r\ncouch_user: ${var.couch_user}\r\ncouch_pass: ${var.couch_pass}\r\nstripe_api_key: ${var.stripe_api_key}\r\ngeoip_license_key: ${var.geoip_license_key}\r\ngeoip_account_id: ${var.geoip_account_id}\r\napp_npm_package: ${var.app_npm_package}\r\nelastic_user: ${var.elastic_user}\r\nelastic_pass: ${var.elastic_pass}\r\ngithub_token: ${var.github_token}\r\njwt_key: ${var.jwt_key}"
     destination = "/usr/local/etc/salt/grains"
   }
 
@@ -330,4 +334,8 @@ output "droplet_ids" {
 
 output "provision" {
   value = var.provision
+}
+
+output "jwt" {
+  value = var.jwt_key
 }

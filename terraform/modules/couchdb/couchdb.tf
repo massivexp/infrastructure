@@ -17,6 +17,10 @@ variable "tld" {}
 variable "disk_size" {}
 variable "heartbeat_private_ip_addresses" {}
 
+variable "jwt" {
+  default = ""
+}
+
 resource "random_integer" "couch_admin_user_length" {
   min = 10
   max = 20
@@ -61,6 +65,7 @@ module "CouchDBNode" {
   keys = var.ssh_keys
   image = var.image
   disk_size = var.disk_size
+  jwt_key = var.jwt
 
   salt_minion_roles = ["couchdb", "minion", "storage"]
   salt_master_droplet_id = var.salt_master_droplet_id
